@@ -1,12 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Atma:wght@300;700&family=Courgette&family=Lobster&family=Pacifico&family=Satisfy&display=swap');
 
-<<<<<<< HEAD
 .test-one{
     font-family: Lobster
 }
 
-=======
->>>>>>> cce33b4cfc3b74e8e740eb5d60c0de0ce2f79a52
+
 .atma {
     font-family: Atma
 }
@@ -23,3 +21,26 @@
     font-family: Pacifico
 }
 
+.login-button{
+    font-size:30px;
+    width: 20vw;
+    height: 10vh;
+    border:solid #ffa600 0px;
+    background-color: #ffa600;
+    color: white;
+}
+.login-button:hover{
+    background-color: #bc7a00;
+    border:solid #bc7a00 2px;
+    color: rgba(255,255,255,0.7)
+}
+.login-button:active{
+    background-color: #ffa600;
+    border:solid #ffa600 3px;
+    color: rgb(255,255,255);
+}
+.form-login-cs{
+    border: solid #C5991C;
+    width: 40vw;
+    background-color: #C5991C;
+}
