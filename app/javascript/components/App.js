@@ -90,6 +90,7 @@ class App extends React.Component {
       logged_in,
       sign_in_route,
       sign_out_route,
+      sign_up_route,
       current_user
     } = this.props
     
