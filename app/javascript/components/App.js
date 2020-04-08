@@ -11,14 +11,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allPosts: []
+      allPosts: [],
+      allProfiles: []
       // We start with an empty array, so the component can finish rendering before we make our fetch request
     };
     this.getPosts();
+    this.getProfiles();
   }
   
   componentWillMount() {
     this.getPosts();
+    this.getProfiles();
   }
   
   getPosts = () => {
@@ -39,8 +42,24 @@ class App extends React.Component {
       });
   };
   
+  getProfiles = () => {
+    // Making a fetch request to the url of our Rails app
+    // fetch returns a promise
+    fetch("http://52.15.70.216:8080/profiles")
+      .then(response => {
+        //Make sure we get a successful response back
+        if (response.status === 200) {
+          // We need to convert the response to JSON
+          // This also returns a promise
+          return response.json();
+        }
+      })
+      .then(profileArray => {
+        this.setState({ allProfiles: profileArray });
+      });
+  };
+  
   createPosts = (newPost) => {
-    console.log(newPost)
     return fetch("http://52.15.70.216:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
@@ -64,7 +83,8 @@ class App extends React.Component {
     const {
       logged_in,
       sign_in_route,
-      sign_out_route
+      sign_out_route,
+      current_user
     } = this.props
     
     return (
@@ -91,7 +111,7 @@ class App extends React.Component {
             <Route
               exact
               path="/"
-              render={props => <Home posts={this.state.allPosts} />}
+              render={props => <Home posts={this.state.allPosts} profiles={this.state.allProfiles} />}
             />
           </Switch>
         </Router>
