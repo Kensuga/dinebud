@@ -23,7 +23,7 @@ class Home extends React.Component {
     getUser = (post) => {
         // Making a fetch request to the url of our Rails app
         // fetch returns a promise
-        fetch(`http://3.133.59.98:8080/user/${post.user_id}`)
+        fetch(`http://52.15.70.216:8080/user/${post.user_id}`)
           .then(response => {
             //Make sure we get a successful response back
             if (response.status === 200) {
