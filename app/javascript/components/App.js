@@ -57,6 +57,24 @@ class App extends React.Component {
       }
     })
   }
+  createUser = (newUser) => {
+    return fetch("http://3.133.122.149:8080/users/sign_up", {
+      // converting an object to a string
+    	body: JSON.stringify(newUser),
+      // specify the info being sent in JSON and the info returning should be JSON
+    	headers: {
+    		"Content-Type": "application/json"
+    	},
+      // HTTP verb so the correct endpoint is invoked on the server
+    	method: "POST"
+    })
+    .then((response) => {
+      // if the response is good call the getAppts method
+      if(response.ok){
+        return this.getPosts()
+      }
+    })
+  }
   
   render () {
     
@@ -86,7 +104,7 @@ class App extends React.Component {
         <Router>
           {logged_in?<Redirect to="/" />:<Redirect to="/login" />}
           <Switch>
-            <Route exact path="/login" render={props => <Login />} />
+            <Route exact path="/login" render={props => <Login handleSubmit={this.createUser}/>} />
             <Route
               exact
               path="/"
