@@ -11,24 +11,17 @@ import {
   Button,
   Container
 } from "reactstrap";
-import {Link} from 'react-router-dom'
 
-class Home extends React.Component {
-  
-  handlePost = (post) => {
-    this.props.viewPost(post)
-  }
-  
+class ViewPost extends React.Component {
   render () {
-    let map = this.props.posts.map((post, i) => {
       let profile = ""
       for(let i=0;i<this.props.profiles.length;i++){
-        if(this.props.profiles[i].user_id === post.user_id){
+        if(this.props.profiles[i].user_id === this.props.post.user_id){
           profile = this.props.profiles[i]
         }
       }
       return (
-          <div key={i}>
+          <div>
             <Row>
               <Col
                 style={{
@@ -40,27 +33,20 @@ class Home extends React.Component {
                   <CardImg src={profile.image}/>
                   <CardBody>
                     <CardTitle>
-                    {profile.name} , {post.location}
+                    {profile.name} , {this.props.post.location}
                     </CardTitle>
                     <CardText>
                     </CardText>
                     <CardText>
                     </CardText>
                   </CardBody>
-                  <Link to="/view"><Button onClick={()=>this.handlePost(post)}>View Details</Button></Link>
                 </Card>
               </Col>
             </Row>
             <br />
           </div>
       );
-    });
-    return (
-      <div style={{backgroundColor:"#0081a8"}}>
-        {map}
-      </div>
-    );
   }
 }
 
-export default Home
+export default ViewPost
