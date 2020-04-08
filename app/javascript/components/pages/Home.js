@@ -13,33 +13,14 @@ import {
 } from "reactstrap";
 
 class Home extends React.Component {
-    constructor(props){
-        super(props)
-        this.state={
-            currentUser: []
-        }
-    }
-    
-    getUser = (post) => {
-        // Making a fetch request to the url of our Rails app
-        // fetch returns a promise
-        fetch(`http://52.15.70.216:8080/user/${post.user_id}`)
-          .then(response => {
-            //Make sure we get a successful response back
-            if (response.status === 200) {
-              // We need to convert the response to JSON
-              // This also returns a promise
-              return response.json();
-            }
-          })
-          .then(user => {
-            this.setState({ currentUser: user });
-          });
-      };
-      
   render () {
     let map = this.props.posts.map((post, i) => {
-    this.getUser(post)
+      let profile = ""
+      for(let i=0;i<this.props.profiles.length;i++){
+        if(this.props.profiles[i].user_id === post.user_id){
+          profile = this.props.profiles[i]
+        }
+      }
       return (
           <div key={i}>
             <Row>
@@ -50,10 +31,10 @@ class Home extends React.Component {
                 }}
               >
                 <Card style={{ width: "60vh", boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
-                  <CardImg src={""}/>
+                  <CardImg src={profile.image}/>
                   <CardBody>
                     <CardTitle>
-                    {currentUser.email}
+                    {profile.name} , {post.location}
                     </CardTitle>
                     <CardText>
                     </CardText>
