@@ -39,8 +39,7 @@ class App extends React.Component {
       });
   };
   
-  createAppt = (newPost) => {
-    console.log(newPost)
+  createPosts = (newPost) => {
     return fetch("http://3.133.122.149:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
