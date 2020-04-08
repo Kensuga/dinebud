@@ -69,6 +69,8 @@ class App extends React.Component {
     
     return (
       <React.Fragment>
+        {logged_in?<h3><a href={sign_out_route} >Log Out</a></h3>:<h3><a href={sign_in_route} >Log In</a></h3>}
+        <h1 className="test-one">Hello World</h1>
       <span>
         <Row style={{background:"#ffa600", borderBottom: "10px solid #bc7a00"}}>
           <Col sm={1} style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
