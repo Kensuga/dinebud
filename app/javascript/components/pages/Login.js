@@ -66,10 +66,7 @@ class Login extends React.Component {
       <React.Fragment>
       <div className="login-container">
       {sign_in && 
-        <Row style={{display:"flex",alignItems:"center"}}>
-           <Col sm={1}>
-          </Col>
-          
+        <Container style={{display:"flex",alignItems:"center"}}>
           <Col style={{display:"flex",justifyContent:"center",alignItems:"column",alignItems:"center",textAlign:"center",color:"white"}}>
             <div className="left-login-container">
               <h1>DineBud</h1>
@@ -122,20 +119,17 @@ class Login extends React.Component {
                 </Row>
               </Container>
             </Col>
-            <Col sm={1}>
-            </Col>
-          </Row>
+          </Container>
         } 
         {!sign_in &&
-        <Row style={{display:"flex",alignItems:"center"}}>
-          <Col sm={1}>
-          </Col>
+        <Container style={{display:"flex",alignItems:"center"}}>
           <Col style={{display:"flex",justifyContent:"center",alignItems:"column",alignItems:"center",textAlign:"center",color:"white"}}>
-            <div className="left-login-container">
+            <Row className="left-login-container">
               <h1>DineBud</h1>
-              <h3>Don't Dine Alone. Dine Bud.</h3>
-              <p>Our objective at <span>Dine Bud</span> is to connect people who want to help others in the form of a meal, with those who need it.</p>
-            </div>
+                <Row><h3>Don't Dine Alone. Dine Bud.</h3>
+                  <p>Our objective at <span>Dine Bud</span> is to connect people who want to help others in the form of a meal, with those who need it.</p>
+                </Row>
+            </Row>
           </Col>
           
           <Col>
@@ -149,7 +143,7 @@ class Login extends React.Component {
                       <Label for="email">Email: </Label>
                     </Col>
                     <Col>
-                    <Input  type="text" id="email" className="input-email" onChange={e=> {
+                    <Input  type="text" id="email" className="input-email" placeholder="Email" onChange={e=> {
                         let email = e.target.value
                         this.userCreateEmail(email)
                       }}/>
@@ -161,7 +155,7 @@ class Login extends React.Component {
                     </Col>
                     <Col>
                       <Input 
-                      type="text" id="password" className= "input-pass" onChange={e=> {
+                      type="text" id="password" className= "input-pass" placeholder="Password(6 characters min)" onChange={e=> {
                         let password = e.target.value
                         this.userCreatePass(password)
                       }}/>
@@ -190,10 +184,7 @@ class Login extends React.Component {
                   }
                 </Row>
               </Container>
-            </Col>
-            <Col sm={1}>
-            </Col>
-          </Row>
+          </Container>
         }
         </div>
       </React.Fragment>
