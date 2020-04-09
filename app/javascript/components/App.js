@@ -29,7 +29,7 @@ class App extends React.Component {
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://52.15.70.216:8080/posts")
+    fetch("http://18.216.117.155:8080/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -47,7 +47,7 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://52.15.70.216:8080/profiles")
+    fetch("http://18.216.117.155:8080/profiles")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -66,7 +66,7 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
-    return fetch("http://52.15.70.216:8080/posts", {
+    return fetch("http://18.216.117.155:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -82,6 +82,19 @@ class App extends React.Component {
         return this.getPosts()
       }
     })
+  }
+  
+  deletePost = (post) => {
+   fetch(`http://18.216.117.155:8080/posts/${post.id}`, {
+     method: 'DELETE'
+    }
+  ).then((response) => {
+    console.log(response)
+    if(response.ok){
+      alert("Post was deleted!")
+      return this.getPosts()
+    }
+  })
   }
   
   render () {
@@ -102,7 +115,7 @@ class App extends React.Component {
             <FaBars style={{color:"white", fontSize:"50px", display:"flex",justifyContent:"center"}} />
           </Col>
           <Col sm={9} style={{display:"flex", alignItems:"center", alignItems:"center"}}>
-            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://52.15.70.216:8080/"}}>
+            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://18.216.117.155:8080/"}}>
                   DineBud
             </h1>
           </Col>
@@ -115,7 +128,7 @@ class App extends React.Component {
           {logged_in?<Redirect to="/" />:<Redirect to="/login" />}
           <Switch>
             <Route exact path="/login" render={props => <Login />} />
-            <Route exact path="/view" render={props => <ViewPost profiles={this.state.allProfiles} post={this.state.viewPost} />} />
+            <Route exact path="/view" render={props => <ViewPost profiles={this.state.allProfiles} post={this.state.viewPost} current_user={current_user} deletePost={this.deletePost} />} />
             <Route
               exact
               path="/"
