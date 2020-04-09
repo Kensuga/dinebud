@@ -90,6 +90,7 @@
 }
 .left-login-container p{
     font-size:40px;
+    margin-left: 20px;
 }
 .login-form-bg{
     border:solid black 1px;
@@ -105,4 +106,12 @@
 }
 button:active {
     background-color:#18638B;
+}
+.sign-a {
+    color: blue;
+}
+.sign-a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    
 }
