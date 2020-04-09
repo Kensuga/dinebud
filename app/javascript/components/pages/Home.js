@@ -50,6 +50,7 @@ class Home extends React.Component {
     });
     return (
       <div style={{backgroundColor:"#0081a8"}}>
+      {console.log(this.props.posts)}
         {map}
       </div>
     );

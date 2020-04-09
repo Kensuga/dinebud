@@ -27,7 +27,7 @@ class App extends React.Component {
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("3.133.122.149:8080/posts")
+    fetch("http://3.133.122.149:8080/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -45,7 +45,7 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://52.15.70.216:8080/profiles")
+    fetch("http://3.133.122.149:8080/profiles")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -60,11 +60,8 @@ class App extends React.Component {
   };
   
   createPosts = (newPost) => {
-<<<<<<< HEAD
     return fetch("http://3.133.122.149:8080/posts", {
-=======
-    return fetch("http://52.15.70.216:8080/posts", {
->>>>>>> ce502bb5eb61244252a6623dcaaedac027e8724f
+
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -82,7 +79,7 @@ class App extends React.Component {
     })
   }
   createUser = (newUser) => {
-    return fetch("http://3.133.122.149:8080/users/sign_up", {
+    return fetch("http://3.133.122.149:8080/users", {
       // converting an object to a string
     	body: JSON.stringify(newUser),
       // specify the info being sent in JSON and the info returning should be JSON

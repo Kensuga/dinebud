@@ -9,7 +9,7 @@ class Login extends React.Component {
       success: false,
       newUser:{
         email:"",
-        password:""
+        encrypted_password:""
       }
     }
   }
@@ -29,7 +29,7 @@ class Login extends React.Component {
   }
   userPasswordUpdate(password){
     let updatedUser = this.state.newUser;
-    updatedUser.email = password
+    updatedUser.encrypted_password = password
     this.setState({updatedUser})
   }
   

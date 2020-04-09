@@ -95,7 +95,7 @@
     border:solid black 1px;
 }
 .log-form-container{
-    border:solid black 1px;
+    border:solid white 1px;
     display: flex;
     flex-direction:column;
     justify-content:center;
