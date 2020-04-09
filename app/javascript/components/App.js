@@ -24,6 +24,7 @@ class App extends React.Component {
   componentWillMount() {
     this.getPosts();
     this.getProfiles();
+    console.log("At page load: ", this.state.viewPost)
   }
   
   getPosts = () => {
