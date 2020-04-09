@@ -29,7 +29,7 @@ class App extends React.Component {
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://18.216.117.155:8080/posts")
+    fetch("http://52.14.227.234:8080/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -47,7 +47,7 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://18.216.117.155:8080/profiles")
+    fetch("http://52.14.227.234:8080/profiles")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -66,7 +66,7 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
-    return fetch("http://18.216.117.155:8080/posts", {
+    return fetch("http://52.14.227.234:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
