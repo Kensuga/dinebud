@@ -11,24 +11,35 @@ import {
   Button,
   Container
 } from "reactstrap";
-import {Link} from 'react-router-dom'
+import { FaTrashAlt } from 'react-icons/fa'
+import { Redirect } from "react-router-dom"
 
-class Home extends React.Component {
+class ViewPost extends React.Component {
+  constructor(props){
+    super(props)
+    this.state={
+      success:false
+    }
+  }
   
-  handlePost = (post) => {
-    this.props.viewPost(post)
+  handleDelete = () => {
+    this.props.deletePost(this.props.post)
+    this.setState({success: true})
   }
   
   render () {
-    let map = this.props.posts.map((post, i) => {
+      let trash = false
       let profile = ""
       for(let i=0;i<this.props.profiles.length;i++){
-        if(this.props.profiles[i].user_id === post.user_id){
+        if(this.props.profiles[i].user_id === this.props.post.user_id){
           profile = this.props.profiles[i]
         }
       }
+      if(this.props.current_user.id === this.props.post.user_id){
+        trash = true
+      }
       return (
-          <div key={i}>
+          <div>
             <Row>
               <Col
                 style={{
@@ -40,28 +51,23 @@ class Home extends React.Component {
                   <CardImg src={profile.image}/>
                   <CardBody>
                     <CardTitle>
-                    {profile.name} , {post.location}
+                    {profile.name} , {this.props.post.location}
                     </CardTitle>
                     <CardText>
                     </CardText>
                     <CardText>
                     </CardText>
                   </CardBody>
-                  <Link to="/view"><Button onClick={()=>this.handlePost(post)}>View Details</Button></Link>
                 </Card>
               </Col>
             </Row>
-            <br />
+            <Row style={{display:'flex', justifyContent:"center"}}>
+            {trash?<FaTrashAlt style={{fontSize:"100px", color:"black"}} onClick={()=> this.handleDelete()}/>:<p> </p>}
+            </Row>
+            {this.state.success===true && <Redirect to="/"/>}
           </div>
       );
-    });
-    return (
-      <div style={{backgroundColor:"#0081a8"}}>
-      {console.log(this.props.posts)}
-        {map}
-      </div>
-    );
   }
 }
 
-export default Home
+export default ViewPost

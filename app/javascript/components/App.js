@@ -1,10 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 import {Row, Col} from 'reactstrap'
-import {FaBars} from 'react-icons/fa'
+import {FaBars, FaBell, FaBellSlash} from 'react-icons/fa'
 import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import ViewPost from './pages/ViewPost'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 
 class App extends React.Component {
@@ -12,7 +13,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       allPosts: [],
-      allProfiles: []
+      allProfiles: [],
+      viewPost: ""
       // We start with an empty array, so the component can finish rendering before we make our fetch request
     };
     this.getPosts();
@@ -27,7 +29,7 @@ class App extends React.Component {
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://3.133.122.149:8080/posts")
+    fetch("http://18.216.117.155:8080/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -45,7 +47,7 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://3.133.122.149:8080/profiles")
+    fetch("http://18.216.117.155:8080/profiles")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -59,9 +61,12 @@ class App extends React.Component {
       });
   };
   
+  viewPost = (post) => {
+    this.setState({viewPost: post})
+  }
+  
   createPosts = (newPost) => {
-    return fetch("http://3.133.122.149:8080/posts", {
-
+    return fetch("http://18.216.117.155:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -97,12 +102,26 @@ class App extends React.Component {
     })
   }
   
+  deletePost = (post) => {
+   fetch(`http://18.216.117.155:8080/posts/${post.id}`, {
+     method: 'DELETE'
+    }
+  ).then((response) => {
+    console.log(response)
+    if(response.ok){
+      alert("Post was deleted!")
+      return this.getPosts()
+    }
+  })
+  }
+  
   render () {
     
     const {
       logged_in,
       sign_in_route,
       sign_out_route,
+      sign_up_route,
       current_user
     } = this.props
     
@@ -114,12 +133,12 @@ class App extends React.Component {
             <FaBars style={{color:"white", fontSize:"50px", display:"flex",justifyContent:"center"}} />
           </Col>
           <Col sm={9} style={{display:"flex", alignItems:"center", alignItems:"center"}}>
-            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}}>
-              DineBud
+            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://18.216.117.155:8080/"}}>
+                  DineBud
             </h1>
           </Col>
           <Col style={{display:'flex', justifyContent:"center", alignItems:"center"}}>
-            {logged_in?<h3><a href={sign_out_route} className={"atma"} style={{color:"white",fontSize:"50px"}}>LogOut</a></h3>:<h3><a href={sign_in_route} className={"atma"} style={{color:"white",fontSize:"50px"}}>LogIn</a></h3>}
+            {logged_in?<h3><a href={sign_out_route} className={"atma"} style={{color:"white",fontSize:"50px"}}>LogOut</a></h3>:<h3><a href={sign_up_route} className={"atma"} style={{color:"white",fontSize:"50px"}}>Sign Up</a></h3>}
           </Col>
         </Row>
       </span>
@@ -127,10 +146,11 @@ class App extends React.Component {
           {logged_in?<Redirect to="/" />:<Redirect to="/login" />}
           <Switch>
             <Route exact path="/login" render={props => <Login handleSubmit={this.createUser}/>} />
+            <Route exact path="/view" render={props => <ViewPost profiles={this.state.allProfiles} post={this.state.viewPost} current_user={current_user} deletePost={this.deletePost} />} />
             <Route
               exact
               path="/"
-              render={props => <Home posts={this.state.allPosts} profiles={this.state.allProfiles} />}
+              render={props => <Home posts={this.state.allPosts} profiles={this.state.allProfiles} viewPost = {this.viewPost}/>}
             />
           </Switch>
         </Router>
