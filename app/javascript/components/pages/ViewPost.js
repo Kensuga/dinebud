@@ -23,7 +23,7 @@ class ViewPost extends React.Component {
   }
   
   handleDelete = () => {
-    this.props.deletePost(this.props.post)
+    this.props.deletePost()
     this.setState({success: true})
   }
   

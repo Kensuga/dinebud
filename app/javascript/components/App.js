@@ -1,11 +1,12 @@
 import React from "react"
 import PropTypes from "prop-types"
 import {Row, Col} from 'reactstrap'
-import {FaBars, FaBell, FaBellSlash} from 'react-icons/fa'
+import {FaBars, FaBell, FaBellSlash, FaPlus} from 'react-icons/fa'
 import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import ViewPost from './pages/ViewPost'
+import CreatePost from './pages/CreatePost'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 
 class App extends React.Component {
@@ -14,7 +15,8 @@ class App extends React.Component {
     this.state = {
       allPosts: [],
       allProfiles: [],
-      viewPost: ""
+      viewPost: "",
+      create: false
       // We start with an empty array, so the component can finish rendering before we make our fetch request
     };
     this.getPosts();
@@ -29,7 +31,7 @@ class App extends React.Component {
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://52.14.227.234:8080/posts")
+    fetch("http://18.216.117.155:8080/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -47,7 +49,7 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://52.14.227.234:8080/profiles")
+    fetch("http://18.216.117.155:8080/profiles")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -66,7 +68,7 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
-    return fetch("http://52.14.227.234:8080/posts", {
+    return fetch("http://18.216.117.155:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -84,8 +86,7 @@ class App extends React.Component {
     })
   }
   createUser = (newUser) => {
-    console.log(newUser)
-    return fetch("http://52.14.227.234:8080/users", {
+    return fetch("http://18.216.117.155:8080/users", {
       // converting an object to a string
     	body: JSON.stringify(newUser),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -121,9 +122,9 @@ class App extends React.Component {
       }
     })
   }
-  
-  deletePost = (post) => {
-   fetch(`http://52.14.227.234:8080/posts/${post.id}`, {
+ 
+  deletePost = () => {
+   fetch(`http://18.216.117.155:8080/posts/${this.state.viewPost.id}`, {
      method: 'DELETE'
     }
   ).then((response) => {
@@ -144,7 +145,10 @@ class App extends React.Component {
       current_user
     } = this.props
     
-    {console.log("current user", current_user)}
+    const {
+      create
+    } = this.state
+    
     return (
       <React.Fragment>
       <span>
@@ -152,19 +156,33 @@ class App extends React.Component {
           <Col sm={1} style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
             <FaBars style={{color:"white", fontSize:"50px", display:"flex",justifyContent:"center"}} />
           </Col>
-          <Col sm={9} style={{display:"flex", alignItems:"center", alignItems:"center"}}>
+          <Col sm={8} style={{display:"flex", alignItems:"center", alignItems:"center"}}>
             <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://18.216.117.155:8080/"}}>
                   DineBud
             </h1>
           </Col>
+          <Col style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+            {logged_in &&
+              <FaPlus style={{color:"white", fontSize:"50px"}} onClick={()=>{this.setState({create: true})}}/>
+            }
+          </Col>
           <Col style={{display:'flex', justifyContent:"center", alignItems:"center"}}>
-            {logged_in?<h3><a href={sign_out_route} className={"atma"} style={{color:"white",fontSize:"50px"}}>LogOut</a></h3>:<h3><a href={sign_up_route} className={"atma"} style={{color:"white",fontSize:"50px"}}>Sign Up</a></h3>}
+            {logged_in &&
+              <h3><a href={sign_out_route} className={"atma"} style={{color:"white",fontSize:"50px"}}>LogOut</a></h3>
+            }
+            {!logged_in &&
+              <h3><a href={sign_up_route} className={"atma"} style={{color:"white",fontSize:"50px"}}>Sign Up</a></h3>
+            }
           </Col>
         </Row>
       </span>
         <Router>
           {logged_in?<Redirect to="/" />:<Redirect to="/login" />}
+          { create &&
+            <Redirect to="/new" />
+          }
           <Switch>
+            <Route exact path="/new" render={props => <CreatePost handleSubmit={this.createPosts} />} />
             <Route exact path="/login" render={props => <Login handleCreateSubmit={this.createUser} handleLoginSubmit={this.loginUser} />} />
             <Route exact path="/view" render={props => <ViewPost profiles={this.state.allProfiles} post={this.state.viewPost} current_user={current_user} deletePost={this.deletePost} />} />
             <Route
