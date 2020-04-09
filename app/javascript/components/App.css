@@ -23,15 +23,17 @@
 
 .login-button{
     font-size:30px;
-    width: 20vw;
+    width: 30vw;
     height: 10vh;
-    border:solid #ffa600 0px;
-    background-color: #ffa600;
+    border:solid #1879AD 0px;
+    background-color: #1879AD;
     color: white;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 .login-button:hover{
-    background-color: #bc7a00;
-    border:solid #bc7a00 2px;
+    background-color: #18638B;
+    border:solid #18638B 2px;
     color: rgba(255,255,255,0.7)
 }
 .login-button:active{
@@ -40,7 +42,67 @@
     color: rgb(255,255,255);
 }
 .form-login-cs{
+    text-align:center;
     border: solid #C5991C;
     width: 40vw;
     background-color: #C5991C;
+    margin-top:10vh;
+    border-radius: 5px 5px 5px 5px;
+}
+.login-container {
+    background-color:#1879AD;
+    height:100vh;
+}
+.log-pass{
+    display:flex;
+    flex-direction:row;
+    margin-left:80px;
+    margin-top: 20px;
+}
+.log-email{
+    display:flex;
+    flex-direction:row;
+    margin-left:107px;
+    margin-top: 20px;
+}
+
+.input-email{
+    width:24.5vw;
+    margin-left: 20px;
+}
+.input-pass {
+    width: 24.5vw;
+    margin-left: 20px;
+}
+.left-login-container h1{
+    font-size:120px;
+    font-family:Pacifico;
+    text-decoration:underline;
+}
+.left-login-container h3{
+    font-size:40px;
+    font-family:Pacifico;
+}
+.left-login-container span{
+    font-size:40px;
+    font-weight:bold;
+    font-family:Pacifico;
+}
+.left-login-container p{
+    font-size:40px;
+}
+.login-form-bg{
+    border:solid black 1px;
+}
+.log-form-container{
+    border:solid white 1px;
+    display: flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    border-radius: 5px 5px 5px 5px;
+    background-color: white;
+}
+button:active {
+    background-color:#18638B;
 }
