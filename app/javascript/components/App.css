@@ -111,7 +111,6 @@ button:active {
     color: blue;
 }
 .sign-a:hover {
-    text-decoration: underline;
-    cursor: pointer;
-    
+    text-decoration:underline;
+    cursor:pointer;
 }
