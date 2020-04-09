@@ -103,7 +103,26 @@ class App extends React.Component {
       }
     })
   }
-  
+  loginUser = (loginUser) => {
+    console.log(loginUser)
+    return fetch("http://52.14.227.234:8080/users", {
+      // converting an object to a string
+    	body: JSON.stringify(loginUser),
+      // specify the info being sent in JSON and the info returning should be JSON
+    	headers: {
+    		"Content-Type": "application/json"
+    	},
+      // HTTP verb so the correct endpoint is invoked on the server
+    	method: "GET"
+    })
+    .then((response) => {
+      // if the response is good call the getAppts method
+      if(response.ok){
+        return this.getPosts()
+      }
+    })
+  }
+ 
   deletePost = () => {
    fetch(`http://18.216.117.155:8080/posts/${this.state.viewPost.id}`, {
      method: 'DELETE'
@@ -116,7 +135,6 @@ class App extends React.Component {
     }
   })
   }
-  
   render () {
     
     const {
@@ -164,8 +182,8 @@ class App extends React.Component {
             <Redirect to="/new" />
           }
           <Switch>
-            <Route exact path="/login" render={props => <Login handleSubmit={this.createUser}/>} />
             <Route exact path="/new" render={props => <CreatePost handleSubmit={this.createPosts} />} />
+            <Route exact path="/login" render={props => <Login handleCreateSubmit={this.createUser} handleLoginSubmit={this.loginUser} />} />
             <Route exact path="/view" render={props => <ViewPost profiles={this.state.allProfiles} post={this.state.viewPost} current_user={current_user} deletePost={this.deletePost} />} />
             <Route
               exact

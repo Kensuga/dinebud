@@ -8,31 +8,56 @@ class Login extends React.Component {
     this.state = {
       success: false,
       sign_in:true,
+      loginUser:{
+        email:"",
+        password:""
+      },
       newUser:{
         email:"",
-        encrypted_password:""
+        password:"",
+        password_confirmation:""
       }
     }
   }
-  
-  handleSubmit(event){
-    event.preventDefault();
-    this.props.handleSubmit(this.state.newUser)
+  loginSubmit(){
+    this.props.handleLoginSubmit(this.state.loginUser)
+    this.setState({
+      success:true
+    })
+  }
+  createSubmit(){
+    this.props.handleCreateSubmit(this.state.newUser)
     this.setState({
       success:true
     })
   }
   
-  userEmailUpdate(email){
+  userCreateEmail(email){
     let updatedUser = this.state.newUser;
     updatedUser.email = email
-    this.setState({updatedUser})
+    this.setState({newUser:updatedUser})
   }
-  userPasswordUpdate(password){
+  userCreatePass(password){
     let updatedUser = this.state.newUser;
-    updatedUser.encrypted_password = password
-    this.setState({updatedUser})
+    updatedUser.password = password
+    this.setState({newUser:updatedUser})
   }
+  userConfirmPass(password){
+    let updatedUser = this.state.newUser
+    updatedUser.password_confirmation = password
+    this.setState({newUser:updatedUser})
+  }
+  userLoginEmail(email){
+    let loginUser = this.state.loginUser
+    loginUser.email = email
+    this.setState({loginUser:loginUser})
+  }
+   userLoginPassword(password){
+    let loginUser = this.state.loginUser
+    loginUser.password = password
+    this.setState({loginUser:loginUser})
+  }
+  
   
   
   render () {
@@ -42,6 +67,9 @@ class Login extends React.Component {
       <div className="login-container">
       {sign_in && 
         <Row style={{display:"flex",alignItems:"center"}}>
+           <Col sm={1}>
+          </Col>
+          
           <Col style={{display:"flex",justifyContent:"center",alignItems:"column",alignItems:"center",textAlign:"center",color:"white"}}>
             <div className="left-login-container">
               <h1>DineBud</h1>
@@ -66,7 +94,7 @@ class Login extends React.Component {
                     <Col>
                     <Input  type="text" id="email" className="input-email" onChange={e=> {
                         let email = e.target.value
-                        this.userEmailUpdate(email)
+                        this.userLoginEmail(email)
                       }}/>
                     </Col>
                   </Row>
@@ -78,26 +106,30 @@ class Login extends React.Component {
                       <Input 
                       type="text" id="password" className= "input-pass" onChange={e=> {
                         let password = e.target.value
-                        this.userEmailUpdate(password)
+                        this.userLoginPassword(password)
                       }}/>
                    </Col>
                   </Row>
                 </Form>
                 <Row>
-                  <p>Don't have an account? <a onClick={()=>this.setState({sign_in:false})}>Sign Up</a></p>
+                  <p>Don't have an account? <span className="sign-a" onClick={()=>this.setState({sign_in:false})}>Sign Up</span></p>
                 </Row>
                 <Row>
-                  <Button onClick={this.handleSubmit} className="login-button">Submit</Button>
+                  <Button onClick={this.loginSubmit()} className="login-button">Submit</Button>
                   { this.state.success && 
                   <Redirect to="/"/> 
                   }
                 </Row>
               </Container>
             </Col>
+            <Col sm={1}>
+            </Col>
           </Row>
         } 
         {!sign_in &&
         <Row style={{display:"flex",alignItems:"center"}}>
+          <Col sm={1}>
+          </Col>
           <Col style={{display:"flex",justifyContent:"center",alignItems:"column",alignItems:"center",textAlign:"center",color:"white"}}>
             <div className="left-login-container">
               <h1>DineBud</h1>
@@ -119,7 +151,7 @@ class Login extends React.Component {
                     <Col>
                     <Input  type="text" id="email" className="input-email" onChange={e=> {
                         let email = e.target.value
-                        this.userEmailUpdate(email)
+                        this.userCreateEmail(email)
                       }}/>
                     </Col>
                   </Row>
@@ -131,7 +163,7 @@ class Login extends React.Component {
                       <Input 
                       type="text" id="password" className= "input-pass" onChange={e=> {
                         let password = e.target.value
-                        this.userEmailUpdate(password)
+                        this.userCreatePass(password)
                       }}/>
                    </Col>
                   </Row>
@@ -143,21 +175,23 @@ class Login extends React.Component {
                       <Input 
                       type="text" id="password" className= "input-pass" placeholder="Confirm Password" onChange={e=> {
                         let password = e.target.value
-                        this.userEmailUpdate(password)
+                        this.userConfirmPass(password)
                       }}/>
                    </Col>
                   </Row>
                 </Form>
                 <Row>
-                  <p>Already have an account? <a onClick={()=>this.setState({sign_in:true})}>Sign In</a></p>
+                  <p>Already have an account? <span className="sign-a" onClick={()=>this.setState({sign_in:true})}>Sign In</span></p>
                 </Row>
                 <Row>
-                  <Button onClick={this.handleSubmit} className="login-button">Submit</Button>
+                  <Button onClick={this.createSubmit} className="login-button">Submit</Button>
                   { this.state.success && 
                   <Redirect to="/"/> 
                   }
                 </Row>
               </Container>
+            </Col>
+            <Col sm={1}>
             </Col>
           </Row>
         }
