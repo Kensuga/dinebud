@@ -11,7 +11,7 @@ import {
   Button,
   Container
 } from "reactstrap";
-import {Link} from 'react-router-dom'
+import {Link, BrowserRouter as Router} from 'react-router-dom'
 
 class Home extends React.Component {
   
@@ -47,7 +47,7 @@ class Home extends React.Component {
                     <CardText>
                     </CardText>
                   </CardBody>
-                  <Link to="/view"><Button onClick={()=>this.handlePost(post)}>View Details</Button></Link>
+                  <Router><Link to="/view"><Button onClick={()=>this.handlePost(post)}>View Details</Button></Link></Router>
                 </Card>
               </Col>
             </Row>
@@ -57,7 +57,6 @@ class Home extends React.Component {
     });
     return (
       <div style={{backgroundColor:"#0081a8"}}>
-      {console.log(this.props.posts)}
         {map}
       </div>
     );
