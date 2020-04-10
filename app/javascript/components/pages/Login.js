@@ -184,6 +184,7 @@ class Login extends React.Component {
                   }
                 </Row>
               </Container>
+            </Col>
           </Container>
         }
         </div>
