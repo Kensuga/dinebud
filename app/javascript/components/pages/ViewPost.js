@@ -29,12 +29,12 @@ class ViewPost extends React.Component {
   
   render () {
       let trash = false
-      let profile = ""
-      for(let i=0;i<this.props.profiles.length;i++){
-        if(this.props.profiles[i].user_id === this.props.post.user_id){
-          profile = this.props.profiles[i]
+      let prof = ""
+      this.props.profiles.forEach((profile,index) => {
+        if(profile.user_id === this.props.post.user_id){
+          prof = profile
         }
-      }
+      })
       if(this.props.current_user.id === this.props.post.user_id){
         trash = true
       }
@@ -48,10 +48,10 @@ class ViewPost extends React.Component {
                 }}
               >
                 <Card style={{ width: "60vh", boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
-                  <CardImg src={profile.image}/>
+                  <CardImg src={prof.image}/>
                   <CardBody>
                     <CardTitle>
-                    {profile.name} , {this.props.post.location}
+                    {prof.name} , {this.props.post.location}
                     </CardTitle>
                     <CardText>
                     </CardText>

@@ -14,3 +14,9 @@ it('Login renders without crashing', () => {
   }
   ReactDOM.render(<Login handleLoginSubmit= { loginFunction }/>, div)
 })
+
+
+it('Login renders content', () => {
+  const login = mount(<Login />)
+  expect(login.find('h1').text()).toEqual('DineBud')
+})
