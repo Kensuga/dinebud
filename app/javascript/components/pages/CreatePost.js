@@ -19,6 +19,7 @@ class CreatePost extends Component {
   handleSubmit = (event) => {
     // keeps React from refreshing the page unnecessarily
     console.log("Hello")
+    this.postScheduleUpdate()
     event.preventDefault()
     // a function call being passed from App.js
     this.props.handleSubmit(this.state.newPost)

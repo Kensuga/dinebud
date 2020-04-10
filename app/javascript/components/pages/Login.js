@@ -65,7 +65,6 @@ class Login extends React.Component {
     return (
       <React.Fragment>
       <div className="login-container">
-      {sign_in && 
         <Container style={{display:"flex",alignItems:"center"}}>
           <Col style={{display:"flex",justifyContent:"center",alignItems:"column",alignItems:"center",textAlign:"center",color:"white"}}>
             <div className="left-login-container">
@@ -74,7 +73,7 @@ class Login extends React.Component {
               <p>Our objective at <span>Dine Bud</span> is to connect people who want to help others in the form of a meal, with those who need it.</p>
             </div>
           </Col>
-          
+          {sign_in &&
           <Col>
             <Container className="log-form-container" >
                 <Row>
@@ -114,24 +113,13 @@ class Login extends React.Component {
                 <Row>
                   <Button onClick={this.loginSubmit()} className="login-button">Submit</Button>
                   { this.state.success && 
-                  <Redirect to="/"/> 
+                  <Router><Redirect to="/"/></Router>
                   }
                 </Row>
               </Container>
             </Col>
-          </Container>
         } 
         {!sign_in &&
-        <Container style={{display:"flex",alignItems:"center"}}>
-          <Col style={{display:"flex",justifyContent:"center",alignItems:"column",alignItems:"center",textAlign:"center",color:"white"}}>
-            <Row className="left-login-container">
-              <h1>DineBud</h1>
-                <Row><h3>Don't Dine Alone. Dine Bud.</h3>
-                  <p>Our objective at <span>Dine Bud</span> is to connect people who want to help others in the form of a meal, with those who need it.</p>
-                </Row>
-            </Row>
-          </Col>
-          
           <Col>
             <Container className="log-form-container" >
                 <Row>
@@ -180,12 +168,13 @@ class Login extends React.Component {
                 <Row>
                   <Button onClick={this.createSubmit} className="login-button">Submit</Button>
                   { this.state.success && 
-                  <Redirect to="/"/> 
+                  <Router><Redirect to="/"/></Router>
                   }
                 </Row>
               </Container>
-          </Container>
+            </Col>
         }
+        </Container>
         </div>
       </React.Fragment>
     );

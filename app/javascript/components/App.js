@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import {Row, Col} from 'reactstrap'
 import {FaBars, FaBell, FaBellSlash, FaPlus} from 'react-icons/fa'
-import './App.css'
+// import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import ViewPost from './pages/ViewPost'
@@ -85,6 +85,7 @@ class App extends React.Component {
       }
     })
   }
+  
   createUser = (newUser) => {
     return fetch("http://18.216.117.155:8080/users", {
       // converting an object to a string
@@ -128,7 +129,6 @@ class App extends React.Component {
      method: 'DELETE'
     }
   ).then((response) => {
-    console.log(response)
     if(response.ok){
       alert("Post was deleted!")
       return this.getPosts()
@@ -178,9 +178,7 @@ class App extends React.Component {
       </span>
         <Router>
           {logged_in?<Redirect to="/" />:<Redirect to="/login" />}
-          { create &&
-            <Redirect to="/new" />
-          }
+          { create && <Redirect to="/new" />}
           <Switch>
             <Route exact path="/new" render={props => <CreatePost handleSubmit={this.createPosts} />} />
             <Route exact path="/login" render={props => <Login handleCreateSubmit={this.createUser} handleLoginSubmit={this.loginUser} />} />
