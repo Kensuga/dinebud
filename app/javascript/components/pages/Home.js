@@ -21,12 +21,12 @@ class Home extends React.Component {
   
   render () {
     let map = this.props.posts.map((post, i) => {
-      let profile = ""
-      for(let i=0;i<this.props.profiles.length;i++){
-        if(this.props.profiles[i].user_id === post.user_id){
-          profile = this.props.profiles[i]
+      let prof = ""
+      this.props.profiles.forEach((profile,index) => {
+        if(profile.user_id === post.user_id){
+          prof = profile
         }
-      }
+      })
       return (
           <div key={i}>
             <Row>
@@ -37,17 +37,17 @@ class Home extends React.Component {
                 }}
               >
                 <Card style={{ width: "60vh", boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
-                  <CardImg src={profile.image}/>
+                  <CardImg src={prof.image}/>
                   <CardBody>
                     <CardTitle>
-                    {profile.name} , {post.location}
+                    {prof.name} , {post.location}
                     </CardTitle>
                     <CardText>
                     </CardText>
                     <CardText>
                     </CardText>
                   </CardBody>
-                  <Router><Link to="/view"><Button onClick={()=>this.handlePost(post)}>View Details</Button></Link></Router>
+                  <Link to="/view"><Button onClick={()=>this.handlePost(post)}>View Details</Button></Link>
                 </Card>
               </Col>
             </Row>
