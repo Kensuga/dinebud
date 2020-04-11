@@ -89,10 +89,15 @@ class Login extends React.Component {
                       <Label for="email">Email: </Label>
                     </Col>
                     <Col>
-                    <Input  type="text" id="email" className="input-email" onChange={e=> {
-                        let email = e.target.value
-                        this.userLoginEmail(email)
-                      }}/>
+                      <Input 
+                      type="text" 
+                      id="email" 
+                      className="input-email" 
+                      placeholder = "Email" 
+                      onChange={e=> {
+                          let email = e.target.value
+                          this.userLoginEmail(email)
+                        }}/>
                     </Col>
                   </Row>
                   <Row display={{display:"flex",justifyContent:"center"}} className="row-log">
@@ -101,7 +106,11 @@ class Login extends React.Component {
                     </Col>
                     <Col>
                       <Input 
-                      type="text" id="password" className= "input-pass" onChange={e=> {
+                      type="text" 
+                      id="password" 
+                      className= "input-pass" 
+                      placeholder = "Password" 
+                      onChange={e=> {
                         let password = e.target.value
                         this.userLoginPassword(password)
                       }}/>
