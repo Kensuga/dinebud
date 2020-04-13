@@ -1,17 +1,25 @@
 # frozen_string_literal: true
 
-# class Users::RegistrationsController < Devise::RegistrationsController
-#   before_action :configure_sign_up_params, only: [:create]
-#   before_action :configure_account_update_params, only: [:update]
+class Users::RegistrationsController < Devise::RegistrationsController
+  before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_account_update_params, only: [:update]
 
 #   # GET /resource/sign_up
-#   def new
-#     super
-#   end
+    def new
+        user = User.new(user_params)
+    end
 #   # POST /resource
-#   def create
-#     super
-#   end
+    def create
+        user = User.create(email: params[:email], 
+        password: params[:password], 
+        password_confirmation: params[:password_confirmation])
+        
+        if user.save
+            render json: {status: "Succes", message: "Created new user account", data: user}, status: :ok
+        else 
+            render json: {status: "Error", message: "Could not create new user account", data: user.errors}, status: :unprocessable_entity
+        end 
+    end 
 
 #   # GET /resource/edit
 #   def edit
@@ -38,8 +46,16 @@
 #   end
 
 #   protected
-
+    
+    
+    private 
+    
+    def user_params
+        params.require(:user).permit(:email, :password, :password_confirmation)
+    end
+    
 #   # If you have extra params to permit, append them to the sanitizer.
+    
 #   def configure_sign_up_params
 #     devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
 #   end
@@ -58,4 +74,4 @@
 #   def after_inactive_sign_up_path_for(resource)
 #     super(resource)
 #   end
-# end
+end

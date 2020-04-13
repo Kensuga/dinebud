@@ -47,10 +47,25 @@ it('input pass capture pass onChange, login case ', () => {
   input.simulate('change')
   expect(login.state().loginUser.password).toEqual('mypassword')
 })
-// not working yet, working on it
-it('submit button changes state', () => {
-  const login = mount(<Login/>)
-  login.find('form').simulate('submit')
-  expect(login.state().success).toEqual(true)
 
+it('input email capture text onChange, signup case', () => {
+  const login = mount(<Login/>)
+  login.setState({
+    sign_in:false
+  })
+  const input = login.find('input').at(0)
+  input.instance().value = 'myemail@gmail.com'
+  input.simulate('change')
+  expect(login.state().newUser.email).toEqual('myemail@gmail.com')
 })
+it('input password capture text onChange, signup case', () => {
+  const login = mount(<Login/>)
+  login.setState({
+    sign_in:false
+  })
+  const input = login.find('input').at(1)
+  input.instance().value = 'passcase2'
+  input.simulate('change')
+  expect(login.state().newUser.password).toEqual('passcase2')
+})
+
