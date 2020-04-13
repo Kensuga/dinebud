@@ -28,33 +28,57 @@ class Home extends React.Component {
         }
       })
       
-      
       return (
-              <Col key={i}
-                style={{
-                  display: "flex",
-                  justifyContent: "center"
-                }}
-              >
-                <Card style={{ width: "60vh", boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
-                  <CardImg src={prof.image}/>
-                  <CardBody>
-                    <CardTitle style={{textAlign:"center"}}>
-                    <h3>{prof.name} is dining at {post.location}</h3>
-                    </CardTitle>
-                    <CardText>
-                    </CardText>
-                    <CardText>
-                    </CardText>
-                  </CardBody>
-                  <Link to="/view"><Button onClick={()=>this.handlePost(post)} style={{width:"100%"}}>View Details</Button></Link>
-                </Card>
-              </Col>
+        <div key={i}
+          style={{
+            display: "flex",
+            justifyContent: "center"
+          }}
+        >
+          <Card style={{ width: "60vh", boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
+            <CardImg src={prof.image}/>
+            <CardBody>
+              <CardTitle style={{textAlign:"center"}}>
+              <h3>{prof.name} is dining at {post.location}</h3>
+              </CardTitle>
+              <CardText>
+              </CardText>
+              <CardText>
+              </CardText>
+            </CardBody>
+            <Link to="/view"><Button onClick={()=>this.handlePost(post)} style={{width:"100%"}}>View Details</Button></Link>
+          </Card>
+        </div>
       );
     });
+    
+    let limiter = Math.ceil(map.length/3)
+    
+    let content = []
+    let tracker = 0
+    const arrayContent = () => {
+      let array = []
+      for(let i = 0; i < 3; i++){
+        if(tracker >= map.length){
+          i = 3;
+        } else {
+        array.push(map[tracker])
+        tracker += 1
+      }
+      }
+      return array
+    }
+    
+    for(let i = 0; i< limiter; i++){
+      content.push(
+        <Row style= {{display:"flex", justifyContent:"center", justifyContent:"space-around", margin:"0 auto", width:"vw"}}>
+          {arrayContent()}
+        </Row>
+        )
+    }
     return (
-      <div style={{backgroundColor:"#0081a8", display:"flex",  width: "100vw", border: "5px solid black"}}>
-        {map}
+      <div style={{backgroundColor:"#0081a8"}}>
+        {content}
       </div>
     );
   }
