@@ -9,16 +9,19 @@ import {
   Row,
   Col,
   Button,
-  Container
+  Container,
+  Input
 } from "reactstrap";
-import { FaTrashAlt } from 'react-icons/fa'
+import { FaTrashAlt, FaEdit, FaCheckCircle } from 'react-icons/fa'
 import { Redirect } from "react-router-dom"
 
 class ViewPost extends React.Component {
   constructor(props){
     super(props)
     this.state={
-      success:false
+      success:false,
+      edit: false,
+      editPost: this.props.post
     }
   }
   
@@ -27,16 +30,50 @@ class ViewPost extends React.Component {
     this.setState({success: true})
   }
   
+      
+  handleEdit = () => {
+    this.setState({edit : true})
+  }
+  
+  handleSave = () => {
+    this.setState({edit: false})
+    this.handleUpdate(this.state.editPost)
+  }
+  
+  postLocationUpdate = (location) => {
+    let updateEdit = this.state.editPost
+    updateEdit.location = location
+    this.setState({editPost : updateEdit})
+  }
+
+
+  handleUpdate = (post) => {
+    fetch(`http://52.14.162.65:8080/posts/${post.id}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify({post: post}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => {
+      })
+  }
+  
+  
   render () {
-      let trash = false
+      let owner = false
       let prof = ""
+      const {
+        post
+      } = this.props
+      
       this.props.profiles.forEach((profile,index) => {
-        if(profile.user_id === this.props.post.user_id){
+        if(profile.user_id === post.user_id){
           prof = profile
         }
       })
-      if(this.props.current_user.id === this.props.post.user_id){
-        trash = true
+      if(this.props.current_user.id === post.user_id){
+        owner = true
       }
       return (
           <div style={{backgroundColor:"#0081a8"}}>
@@ -47,11 +84,24 @@ class ViewPost extends React.Component {
                   justifyContent: "center"
                 }}
               >
-                <Card style={{ width: "60vh", boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
+                <Card style={{ boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
                   <CardImg src={prof.image}/>
                   <CardBody>
                     <CardTitle>
-                    {prof.name} , {this.props.post.location}
+                    <Row>
+                    <Col sm={2}>Post Owner: </Col><Col>{prof.name}</Col>
+                    </Row>
+                    <br/>
+                    <Row style={{display:'flex'}}>
+                    <Col sm={2}>Location: </Col>{this.state.edit && <Col><Input
+                    type="text"
+                    id="location"
+                    placeholder="Location"
+                    onChange={e => {
+                      let location = e.target.value;
+                      this.postLocationUpdate(location);}} /></Col>}
+                    {!this.state.edit && <Col><p>{post.location}</p></Col>}
+                    </Row>
                     </CardTitle>
                     <CardText>
                     </CardText>
@@ -61,8 +111,14 @@ class ViewPost extends React.Component {
                 </Card>
               </Col>
             </Row>
-            <Row style={{display:'flex', justifyContent:"center"}}>
-            {trash?<FaTrashAlt style={{fontSize:"100px", color:"black"}} onClick={()=> this.handleDelete()}/>:<p> </p>}
+            <Row style={{display:'flex', justifyContent:"center", marginTop:"3vh"}}>
+            {owner&& !this.state.edit &&
+              <FaEdit  style={{fontSize:"50px", color:"white"}} onClick={()=> this.handleEdit()}/>
+            }
+            {owner && this.state.edit &&
+              <FaCheckCircle style={{fontSize:"50px", color:"white"}} onClick={()=> this.handleSave()}/>
+            }
+            {owner?<FaTrashAlt style={{fontSize:"50px", color:"white"}} onClick={()=> this.handleDelete()}/>:<p> </p>}
             </Row>
             {this.state.success===true && <Redirect to="/"/>}
           </div>
