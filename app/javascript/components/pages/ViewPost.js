@@ -39,7 +39,7 @@ class ViewPost extends React.Component {
         trash = true
       }
       return (
-          <div>
+          <div style={{backgroundColor:"#0081a8"}}>
             <Row>
               <Col
                 style={{

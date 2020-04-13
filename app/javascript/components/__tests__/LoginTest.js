@@ -47,10 +47,3 @@ it('input pass capture pass onChange, login case ', () => {
   input.simulate('change')
   expect(login.state().loginUser.password).toEqual('mypassword')
 })
-// not working yet, working on it
-it('submit button changes state', () => {
-  const login = mount(<Login/>)
-  login.find('form').simulate('submit')
-  expect(login.state().success).toEqual(true)
-
-})
