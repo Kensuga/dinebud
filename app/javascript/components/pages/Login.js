@@ -111,7 +111,7 @@ class Login extends React.Component {
                   <p>Don't have an account? <span className="sign-a" onClick={()=>this.setState({sign_in:false})}>Sign Up</span></p>
                 </Row>
                 <Row>
-                  <Button onClick={this.loginSubmit()} className="login-button">Submit</Button>
+                  <Button onClick={() =>this.loginSubmit()} className="login-button">Submit</Button>
                   { this.state.success && 
                   <Router><Redirect to="/"/></Router>
                   }
@@ -166,17 +166,13 @@ class Login extends React.Component {
                   <p>Already have an account? <span className="sign-a" onClick={()=>this.setState({sign_in:true})}>Sign In</span></p>
                 </Row>
                 <Row>
-                  <Button onClick={this.createSubmit} className="login-button">Submit</Button>
+                  <Button onClick={() =>this.createSubmit} className="login-button">Submit</Button>
                   { this.state.success && 
                   <Router><Redirect to="/"/></Router>
                   }
                 </Row>
               </Container>
             </Col>
-<<<<<<< HEAD
-          </Container>
-=======
->>>>>>> a30f80df2a43994009526feff57b7c0c947d5f52
         }
         </Container>
         </div>

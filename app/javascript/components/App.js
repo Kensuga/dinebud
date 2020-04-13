@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import {Row, Col} from 'reactstrap'
 import {FaBars, FaBell, FaBellSlash, FaPlus} from 'react-icons/fa'
-// import './App.css'
+import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import ViewPost from './pages/ViewPost'
@@ -31,7 +31,7 @@ class App extends React.Component {
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://18.223.33.85:8080/posts")
+    fetch("http://3.134.101.183:8080/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -49,7 +49,7 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://18.223.33.85:8080/profiles")
+    fetch("http://3.134.101.183:8080/profiles")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -68,7 +68,7 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
-    return fetch("http://18.223.33.85:8080/posts", {
+    return fetch("http://3.134.101.183:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -87,7 +87,7 @@ class App extends React.Component {
   }
   
   createUser = (newUser) => {
-    return fetch("http://18.223.33.85:8080/users", {
+    return fetch("http://3.134.101.183:8080/users", {
       // converting an object to a string
     	body: JSON.stringify(newUser),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -106,7 +106,7 @@ class App extends React.Component {
   }
   loginUser = (loginUser) => {
     console.log(loginUser)
-    return fetch("http://18.223.33.85:8080/users", {
+    return fetch("http://3.134.101.183:8080/users", {
       // converting an object to a string
     	body: JSON.stringify(loginUser),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -125,7 +125,7 @@ class App extends React.Component {
   }
  
   deletePost = () => {
-   fetch(`http://18.223.33.85:8080/posts/${this.state.viewPost.id}`, {
+   fetch(`http://3.134.101.183:8080/posts/${this.state.viewPost.id}`, {
      method: 'DELETE'
     }
   ).then((response) => {

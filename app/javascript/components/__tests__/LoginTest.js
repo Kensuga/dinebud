@@ -14,3 +14,8 @@ it('Login renders without crashing', () => {
   }
   ReactDOM.render(<Login handleLoginSubmit= { loginFunction }/>, div)
 })
+
+it('Login renders without crashing', () => {
+  const loginIndex = mount(<Login />)
+  expect(loginIndex.find('p').text()).toEqual(true)
+})
