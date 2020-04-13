@@ -68,7 +68,7 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
-    return fetch("http://52.14.162.65:8080/posts", {
+    return fetch("http://13.59.206.92:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -114,7 +114,7 @@ class App extends React.Component {
     		"Content-Type": "application/json"
     	},
       // HTTP verb so the correct endpoint is invoked on the server
-    	method: "GET"
+    	method: "POST"
     })
     .then((response) => {
       // if the response is good call the getAppts method

@@ -7,7 +7,9 @@ class Login extends React.Component {
     super(props)
     this.state = {
       success: false,
-      sign_in:true,
+      signIn:true,
+      message:false,
+      loginMessage: "Make sure your passwords match",
       loginUser:{
         email:"",
         password:""
@@ -20,17 +22,28 @@ class Login extends React.Component {
     }
   }
   
+  // loginSubmit(){
+  //     this.props.handleLoginSubmit(this.state.loginUser)
+  //     this.setState({
+  //       success:true,
+  //     })
+  //   }
   loginSubmit(){
-    this.props.handleLoginSubmit(this.state.loginUser)
-    this.setState({
-      success:true
-    })
-  }
+      this.props.handleLoginSubmit(this.state.loginUser)
+      this.setState({
+        success:true
+      })
+    }
+    
   createSubmit(){
-    this.props.handleCreateSubmit(this.state.newUser)
-    this.setState({
-      success:true
-    })
+    let {password, password_confirmation } = this.state.newUser
+    if(password === password_confirmation){
+     alert("passwords match!")
+    } else {
+      this.setState({
+        message:true
+      })
+    }
   }
   
   userCreateEmail(email){
@@ -62,7 +75,10 @@ class Login extends React.Component {
   
   
   render () {
-    let {sign_in} = this.state
+    let {sign_in, message, loginMessage} = this.state
+    {console.log("message status:" , message)}
+    {console.log("new user state", this.state.newUser)}
+    {console.log("password match message", loginMessage)}
     return (
       <React.Fragment>
       <div className="login-container">
@@ -106,7 +122,7 @@ class Login extends React.Component {
                     </Col>
                     <Col>
                       <Input 
-                      type="text" 
+                      type="password" 
                       id="password" 
                       className= "input-pass" 
                       placeholder = "Password" 
@@ -153,7 +169,7 @@ class Login extends React.Component {
                     </Col>
                     <Col>
                       <Input 
-                      type="text" id="password" className= "input-pass" placeholder="Password(6 characters min)" onChange={e=> {
+                      type="password" id="password" className= "input-pass" placeholder="Password(6 characters min)" onChange={e=> {
                         let password = e.target.value
                         this.userCreatePass(password)
                       }}/>
@@ -165,7 +181,7 @@ class Login extends React.Component {
                     </Col>
                     <Col>
                       <Input 
-                      type="text" id="password" className= "input-pass" placeholder="Confirm Password" onChange={e=> {
+                      type="password" id="password_confirmation" className= "input-pass" placeholder="Confirm Password" onChange={e=> {
                         let password = e.target.value
                         this.userConfirmPass(password)
                       }}/>
@@ -175,8 +191,13 @@ class Login extends React.Component {
                 <Row>
                   <p>Already have an account? <span className="sign-a" onClick={()=>this.setState({sign_in:true})}>Sign In</span></p>
                 </Row>
+                {message && 
                 <Row>
-                  <Button onClick={() => this.createSubmit} className="login-button">Submit</Button>
+                  <p style={{fontWeight:"bold",fontStyle:"italic"}}>{loginMessage}</p>
+                </Row>
+                }
+                <Row>
+                  <Button onClick={() => this.createSubmit()} className="login-button">Submit</Button>
                   { this.state.success && 
                   <Router><Redirect to="/"/></Router>
                   }
