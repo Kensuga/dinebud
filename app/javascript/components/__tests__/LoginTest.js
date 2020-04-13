@@ -69,3 +69,5 @@ it('input password capture text onChange, signup case', () => {
   expect(login.state().newUser.password).toEqual('passcase2')
 })
 
+
+
