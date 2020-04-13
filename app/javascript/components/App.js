@@ -68,7 +68,7 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
-    return fetch("http://13.59.206.92:8080/posts", {
+    return fetch("http://52.14.162.65:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -150,7 +150,7 @@ class App extends React.Component {
     } = this.state
     
     return (
-      <React.Fragment>
+      <div style={{backgroundColor:"#0081a8"}}>
       <span>
         <Row style={{background:"#ffa600", borderBottom: "10px solid #bc7a00"}}>
           <Col sm={1} style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
@@ -190,7 +190,10 @@ class App extends React.Component {
             />
           </Switch>
         </Router>
-      </React.Fragment>
+        <footer style={{ backgroundColor:"#0081a8", marginTop:"3vh"}}>
+          <p style={{textAlign:"center", color:"rgba(255,255,255,0.4)"}}>Created by Cruz, Art, and Alejandro</p>
+        </footer>
+      </div>
     );
   }
 }
