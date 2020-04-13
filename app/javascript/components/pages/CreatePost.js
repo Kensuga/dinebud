@@ -11,16 +11,17 @@ class CreatePost extends Component {
       newPost: {
         location: "",
         schedule_time: "",
+        active: true,
+        partner_id: 0
       },
       date: "",
       time: ""
     };
   }
-  handleSubmit = (event) => {
+  handleSubmit = () => {
     // keeps React from refreshing the page unnecessarily
     console.log("Hello")
-    this.postScheduleUpdate()
-    event.preventDefault()
+    console.log(this.state.newPost)
     // a function call being passed from App.js
     this.props.handleSubmit(this.state.newPost)
     this.setState({
@@ -34,21 +35,26 @@ class CreatePost extends Component {
     this.setState({ newPost: updatedPost });
   }
   postDateUpdate(date) {
-    this.setState({date: date})
+    this.setState({date: date}) 
+    this.postScheduleUpdate()
   }
   
   postTimeUpdate(time) {
-      this.setState({time: time})
+    this.setState({time: time})
+    this.postScheduleUpdate()
   }
   
   postScheduleUpdate(){
       let realDate = this.state.date.concat(this.state.time)
+      console.log(this.state.date.concat(this.state.time))
+      console.log(realDate)
       this.setState({ schedule_time: realDate})
   }
 
   render() {
     return (
-      <div>
+      <div style={{backgroundColor:"#0081a8", height:"100vh"}}>
+      <Container>
         <h1
           style={{
             textAlign: "center",
@@ -56,7 +62,7 @@ class CreatePost extends Component {
         >
           Create A New Post
         </h1>
-        <Container>
+        <Container style={{backgroundColor:"white", borderRadius:"5px"}}>
             <Row style={{ display: "flex", justifyContent: "center" }}>
               <Form>
                 <FormGroup>
@@ -83,6 +89,7 @@ class CreatePost extends Component {
                           placeholder="date placeholder"
                           onChange={e => {
                               let date = e.target.value;
+                              console.log(date);
                               this.postDateUpdate(date);
                           }} />
                         <Label for="exampleTime">Time</Label>
@@ -93,6 +100,7 @@ class CreatePost extends Component {
                           placeholder="time placeholder"
                           onChange={e => {
                               let time = e.target.value;
+                              console.log(time);
                               this.postTimeUpdate(time)
                           }} />
                     </FormGroup>
@@ -102,12 +110,13 @@ class CreatePost extends Component {
               <Button
                 name="submit"
                 id="submit"
-                onClick={() => this.handleSubmit }
+                onClick={() => this.handleSubmit()}
               >
                 Submit
               </Button>
               { this.state.success && <Redirect to="/"/> }
           </Row>
+        </Container>
         </Container>
       </div>
     );

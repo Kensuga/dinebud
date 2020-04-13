@@ -27,10 +27,10 @@ class Home extends React.Component {
           prof = profile
         }
       })
+      
+      
       return (
-          <div key={i}>
-            <Row>
-              <Col
+              <Col key={i}
                 style={{
                   display: "flex",
                   justifyContent: "center"
@@ -39,24 +39,21 @@ class Home extends React.Component {
                 <Card style={{ width: "60vh", boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
                   <CardImg src={prof.image}/>
                   <CardBody>
-                    <CardTitle>
-                    {prof.name} , {post.location}
+                    <CardTitle style={{textAlign:"center"}}>
+                    <h3>{prof.name} is dining at {post.location}</h3>
                     </CardTitle>
                     <CardText>
                     </CardText>
                     <CardText>
                     </CardText>
                   </CardBody>
-                  <Link to="/view"><Button onClick={()=>this.handlePost(post)}>View Details</Button></Link>
+                  <Link to="/view"><Button onClick={()=>this.handlePost(post)} style={{width:"100%"}}>View Details</Button></Link>
                 </Card>
               </Col>
-            </Row>
-            <br />
-          </div>
       );
     });
     return (
-      <div style={{backgroundColor:"#0081a8"}}>
+      <div style={{backgroundColor:"#0081a8", display:"flex",  width: "100vw", border: "5px solid black"}}>
         {map}
       </div>
     );
