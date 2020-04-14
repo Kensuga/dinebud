@@ -22,30 +22,69 @@ class Login extends React.Component {
     }
   }
   
-  // loginSubmit(){
-  //     this.props.handleLoginSubmit(this.state.loginUser)
-  //     this.setState({
-  //       success:true,
-  //     })
-  //   }
-  loginSubmit(){
-      this.props.handleLoginSubmit(this.state.loginUser)
-      this.setState({
-        success:true
-      })
-    }
-    
-  createSubmit(){
-    let {password, password_confirmation } = this.state.newUser
+  createSubmit(event){
+    let thats = this
+    let {email, password, password_confirmation } = this.state.newUser
     if(password === password_confirmation){
-     alert("passwords match!")
+    fetch('http://13.59.206.92:8080/users', {
+      // converting an object to a string
+    	body: JSON.stringify({
+    	  user:{
+    	    email: email,
+    	    password: password,
+    	    password_confirmation: password_confirmation
+    	  }}),
+      // specify the info being sent in JSON and the info returning should be JSON
+    	headers: {
+    		"Content-Type": "application/json"
+    	},
+      // HTTP verb so the correct endpoint is invoked on the server
+    	method: "POST"
+    })
+    .then((response) => {
+      console.log(response)
+      // if the response is good call the getAppts method
+      if(response.ok){
+        thats.setState({success:true})
+        alert("Success")
+        location.reload()
+      }
+    })
     } else {
-      this.setState({
-        message:true
-      })
+      thats.setState({message:true})
     }
+    event.preventDefault()
   }
   
+  loginSubmit(event){
+    let thats = this
+    let {email, password } = this.state.loginUser
+    fetch('http://13.59.206.92:8080/users/sign_in', {
+      // converting an object to a string
+    	body: JSON.stringify({
+    	  user:{
+    	    email: email,
+    	    password: password,
+    	  }}),
+      // specify the info being sent in JSON and the info returning should be JSON
+    	headers: {
+    		"Content-Type": "application/json"
+    	},
+      // HTTP verb so the correct endpoint is invoked on the server
+    	method: "POST"
+    })
+    .then((response) => {
+      console.log(response)
+      // if the response is good call the getAppts method
+      if(response.ok){
+        thats.setState({success:true})
+        alert("success")
+        location.reload()
+      }
+    })
+    event.preventDefault()
+  }
+
   userCreateEmail(email){
     let updatedUser = this.state.newUser;
     updatedUser.email = email
@@ -76,9 +115,8 @@ class Login extends React.Component {
   
   render () {
     let {sign_in, message, loginMessage} = this.state
-    {console.log("message status:" , message)}
-    {console.log("new user state", this.state.newUser)}
-    {console.log("password match message", loginMessage)}
+    {console.log(this.state.success)}
+    {console.log(this.state.loginUser)}
     return (
       <React.Fragment>
       <div className="login-container">
@@ -113,7 +151,8 @@ class Login extends React.Component {
                       onChange={e=> {
                           let email = e.target.value
                           this.userLoginEmail(email)
-                        }}/>
+                        }} 
+                        required/>
                     </Col>
                   </Row>
                   <Row display={{display:"flex",justifyContent:"center"}} className="row-log">
@@ -129,7 +168,8 @@ class Login extends React.Component {
                       onChange={e=> {
                         let password = e.target.value
                         this.userLoginPassword(password)
-                      }}/>
+                      }} 
+                      required/>
                    </Col>
                   </Row>
                 </Form>
@@ -137,9 +177,9 @@ class Login extends React.Component {
                   <p>Don't have an account? <span className="sign-a" onClick={()=>this.setState({sign_in:false})}>Sign Up</span></p>
                 </Row>
                 <Row>
-                  <Button onClick={() => this.loginSubmit()} className="login-button">Submit</Button>
+                  <Button onClick={(e) => this.loginSubmit(e)} className="login-button">Submit</Button>
                   { this.state.success && 
-                  <Router><Redirect to="/"/></Router>
+                  <Redirect to="/"/>
                   }
                 </Row>
               </Container>
@@ -160,7 +200,8 @@ class Login extends React.Component {
                     <Input  type="text" id="email" className="input-email" placeholder="Email" onChange={e=> {
                         let email = e.target.value
                         this.userCreateEmail(email)
-                      }}/>
+                      }} 
+                      required/>
                     </Col>
                   </Row>
                   <Row display={{display:"flex",justifyContent:"center"}} className="row-log">
@@ -172,7 +213,7 @@ class Login extends React.Component {
                       type="password" id="password" className= "input-pass" placeholder="Password(6 characters min)" onChange={e=> {
                         let password = e.target.value
                         this.userCreatePass(password)
-                      }}/>
+                      }} required/>
                    </Col>
                   </Row>
                   <Row display={{display:"flex",justifyContent:"center"}} className="row-log">
@@ -184,7 +225,7 @@ class Login extends React.Component {
                       type="password" id="password_confirmation" className= "input-pass" placeholder="Confirm Password" onChange={e=> {
                         let password = e.target.value
                         this.userConfirmPass(password)
-                      }}/>
+                      }} required/>
                    </Col>
                   </Row>
                 </Form>
@@ -197,7 +238,7 @@ class Login extends React.Component {
                 </Row>
                 }
                 <Row>
-                  <Button onClick={() => this.createSubmit()} className="login-button">Submit</Button>
+                  <Button onClick={(e) => this.createSubmit(e)} className="login-button">Submit</Button>
                   { this.state.success && 
                   <Router><Redirect to="/"/></Router>
                   }

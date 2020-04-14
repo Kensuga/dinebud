@@ -31,7 +31,7 @@ class App extends React.Component {
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://52.14.162.65:8080/posts")
+    fetch("http://13.59.206.92:8080/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -49,7 +49,7 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://52.14.162.65:8080/profiles")
+    fetch("http://13.59.206.92:8080/profiles")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -68,7 +68,7 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
-    return fetch("http://52.14.162.65:8080/posts", {
+    return fetch("http://13.59.206.92:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -86,27 +86,9 @@ class App extends React.Component {
     })
   }
   
-  createUser = (newUser) => {
-    return fetch("http://52.14.162.65:8080/users", {
-      // converting an object to a string
-    	body: JSON.stringify(newUser),
-      // specify the info being sent in JSON and the info returning should be JSON
-    	headers: {
-    		"Content-Type": "application/json"
-    	},
-      // HTTP verb so the correct endpoint is invoked on the server
-    	method: "POST"
-    })
-    .then((response) => {
-      // if the response is good call the getAppts method
-      if(response.ok){
-        return this.getPosts()
-      }
-    })
-  }
   loginUser = (loginUser) => {
     console.log(loginUser)
-    return fetch("http://52.14.162.65:8080/users", {
+    return fetch("http://13.59.206.92:8080/users", {
       // converting an object to a string
     	body: JSON.stringify(loginUser),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -125,7 +107,7 @@ class App extends React.Component {
   }
  
   deletePost = () => {
-   fetch(`http://52.14.162.65:8080/posts/${this.state.viewPost.id}`, {
+   fetch(`http://13.59.206.92:8080/posts/${this.state.viewPost.id}`, {
      method: 'DELETE'
     }
   ).then((response) => {
@@ -144,7 +126,7 @@ class App extends React.Component {
       sign_up_route,
       current_user
     } = this.props
-    
+    {console.log(current_user)}
     const {
       create
     } = this.state
@@ -157,7 +139,7 @@ class App extends React.Component {
             <FaBars style={{color:"white", fontSize:"50px", display:"flex",justifyContent:"center"}} />
           </Col>
           <Col sm={8} style={{display:"flex", alignItems:"center", alignItems:"center"}}>
-            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://52.14.162.65:8080/"}}>
+            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://13.59.206.92:8080/"}}>
                   DineBud
             </h1>
           </Col>
@@ -180,8 +162,8 @@ class App extends React.Component {
           {logged_in?<Redirect to="/" />:<Redirect to="/login" />}
           { create && <Redirect to="/new" />}
           <Switch>
-            <Route exact path="/new" render={props => <CreatePost handleSubmit={this.createPosts} />} />
-            <Route exact path="/login" render={props => <Login handleCreateSubmit={this.createUser} handleLoginSubmit={this.loginUser} />} />
+            <Route exact path="/new" render={props => <CreatePost handleSubmit={this.createPosts} sign_up_route = {sign_up_route}/>} />
+            <Route exact path="/login" render={props => <Login handleLoginSubmit={this.loginUser} />} />
             <Route exact path="/view" render={props => <ViewPost profiles={this.state.allProfiles} post={this.state.viewPost} current_user={current_user} deletePost={this.deletePost} />} />
             <Route
               exact
