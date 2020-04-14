@@ -48,7 +48,7 @@ class ViewPost extends React.Component {
 
 
   handleUpdate = (post) => {
-    fetch(`http://52.14.162.65:8080/posts/${post.id}`,
+    fetch(`http://3.15.186.122:8080/posts/${post.id}`,
     {
       method: 'PUT',
       body: JSON.stringify({post: post}),
