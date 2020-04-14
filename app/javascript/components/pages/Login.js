@@ -26,7 +26,7 @@ class Login extends React.Component {
     let thats = this
     let {email, password, password_confirmation } = this.state.newUser
     if(password === password_confirmation){
-    fetch('http://13.59.206.92:8080/users', {
+    fetch('http://18.217.43.101:8080/users', {
       // converting an object to a string
     	body: JSON.stringify({
     	  user:{
@@ -59,7 +59,7 @@ class Login extends React.Component {
   loginSubmit(event){
     let thats = this
     let {email, password } = this.state.loginUser
-    fetch('http://13.59.206.92:8080/users/sign_in', {
+    fetch('http://18.217.43.101:8080/users/sign_in', {
       // converting an object to a string
     	body: JSON.stringify({
     	  user:{
