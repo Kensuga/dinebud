@@ -51,3 +51,5 @@ gem "react-rails", "~> 2.6"
 gem "bootstrap", "~> 4.4"
 
 gem "devise", "~> 4.7"
+
+gem 'geocoder'
