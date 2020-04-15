@@ -15,6 +15,7 @@ import {
 import { FaTrashAlt, FaEdit, FaCheckCircle } from 'react-icons/fa'
 import { Redirect } from "react-router-dom"
 import Location from '../components/Location'
+import PostMap from '../components/PostMap'
 
 class ViewPost extends React.Component {
   constructor(props){
@@ -49,6 +50,7 @@ class ViewPost extends React.Component {
     this.setState({edit: false})
     this.postLocationUpdate(this.state.address)
     this.postCoordsUpdate(this.state.lat,this.state.lng)
+    console.log(this.state.editPost)
     this.handleUpdate(this.state.editPost)
   }
   
@@ -67,7 +69,11 @@ class ViewPost extends React.Component {
 
 
   handleUpdate = (post) => {
+<<<<<<< HEAD
     fetch(`http://18.219.82.25:8080/posts/${post.id}`,
+=======
+    fetch(`http://13.59.38.196:8080/posts/${post.id}`,
+>>>>>>> 0c6d47f7469272d742a753729c29ac2cc908dde7
     {
       method: 'PUT',
       body: JSON.stringify({post: post}),
@@ -104,7 +110,12 @@ class ViewPost extends React.Component {
                 }}
               >
                 <Card style={{ boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
-                  <CardImg src={prof.image}/>
+                  <Container style={{display:"flex", flexDirection: "row"}}>
+                  <Row style={{height:"50vh"}}>
+                    <Col><CardImg src={prof.image} style={{height:"100%", objectFit:"cover"}}/></Col>
+                    <Col><PostMap post={post}/></Col>
+                  </Row>
+                  </Container>
                   <CardBody>
                     <CardTitle>
                     <Row>
@@ -134,7 +145,6 @@ class ViewPost extends React.Component {
             {owner?<FaTrashAlt style={{fontSize:"50px", color:"white"}} onClick={()=> this.handleDelete()}/>:<p> </p>}
             </Row>
             {this.state.success===true && <Redirect to="/"/>}
-            <button onClick={()=>console.log(this.state.address, this.state.lat, this.state.lng)}>What are the address/coords?</button>
           </div>
       );
   }

@@ -114,3 +114,23 @@ button:active {
     text-decoration:underline;
     cursor:pointer;
 }
+.outer-profile-container{
+    height: 100vh;
+    background-color:#1879AD;
+}
+.profile-container{
+    border:solid white 1px;
+    display: flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    border-radius: 5px 5px 5px 5px;
+    background-color: white;
+    
+}
+.profile-input {
+    width: 23vw;
+}
+.profile-row {
+    margin-top: 25px;
+}

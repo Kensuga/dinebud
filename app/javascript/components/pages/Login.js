@@ -42,11 +42,9 @@ class Login extends React.Component {
     	method: "POST"
     })
     .then((response) => {
-      console.log(response)
       // if the response is good call the getAppts method
       if(response.ok){
         thats.setState({success:true})
-        alert("Success")
         location.reload()
       }
     })
@@ -74,7 +72,6 @@ class Login extends React.Component {
     	method: "POST"
     })
     .then((response) => {
-      console.log(response)
       // if the response is good call the getAppts method
       if(response.ok){
         thats.setState({success:true})
@@ -115,8 +112,6 @@ class Login extends React.Component {
   
   render () {
     let {sign_in, message, loginMessage} = this.state
-    {console.log(this.state.success)}
-    {console.log(this.state.loginUser)}
     return (
       <React.Fragment>
       <div className="login-container">
