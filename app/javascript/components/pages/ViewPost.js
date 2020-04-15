@@ -14,6 +14,8 @@ import {
 } from "reactstrap";
 import { FaTrashAlt, FaEdit, FaCheckCircle } from 'react-icons/fa'
 import { Redirect } from "react-router-dom"
+import Location from '../components/Location'
+import PostMap from '../components/PostMap'
 
 class ViewPost extends React.Component {
   constructor(props){
@@ -21,7 +23,10 @@ class ViewPost extends React.Component {
     this.state={
       success:false,
       edit: false,
-      editPost: this.props.post
+      editPost: this.props.post,
+      address: "",
+      lat: 0,
+      lng: 0
     }
   }
   
@@ -30,6 +35,12 @@ class ViewPost extends React.Component {
     this.setState({success: true})
   }
   
+  getLocation = (address, coordinates) => {
+    this.setState({address: address})
+    this.setState({lat : coordinates.lat})
+    this.setState({lng : coordinates.lng})
+    console.log(address, coordinates)
+  }
       
   handleEdit = () => {
     this.setState({edit : true})
@@ -37,7 +48,17 @@ class ViewPost extends React.Component {
   
   handleSave = () => {
     this.setState({edit: false})
+    this.postLocationUpdate(this.state.address)
+    this.postCoordsUpdate(this.state.lat,this.state.lng)
+    console.log(this.state.editPost)
     this.handleUpdate(this.state.editPost)
+  }
+  
+  postCoordsUpdate = (lat, lng) => {
+    let updateEdit = this.state.editPost
+    updateEdit.lat = lat
+    updateEdit.lng = lng
+    this.setState({editPost: updateEdit})
   }
   
   postLocationUpdate = (location) => {
@@ -48,7 +69,7 @@ class ViewPost extends React.Component {
 
 
   handleUpdate = (post) => {
-    fetch(`http://3.15.186.122:8080/posts/${post.id}`,
+    fetch(`http://13.59.38.196:8080/posts/${post.id}`,
     {
       method: 'PUT',
       body: JSON.stringify({post: post}),
@@ -85,7 +106,12 @@ class ViewPost extends React.Component {
                 }}
               >
                 <Card style={{ boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
-                  <CardImg src={prof.image}/>
+                  <Container style={{display:"flex", flexDirection: "row"}}>
+                  <Row style={{height:"50vh"}}>
+                    <Col><CardImg src={prof.image} style={{height:"100%", objectFit:"cover"}}/></Col>
+                    <Col><PostMap post={post}/></Col>
+                  </Row>
+                  </Container>
                   <CardBody>
                     <CardTitle>
                     <Row>
@@ -93,13 +119,7 @@ class ViewPost extends React.Component {
                     </Row>
                     <br/>
                     <Row style={{display:'flex'}}>
-                    <Col sm={2}>Location: </Col>{this.state.edit && <Col><Input
-                    type="text"
-                    id="location"
-                    placeholder="Location"
-                    onChange={e => {
-                      let location = e.target.value;
-                      this.postLocationUpdate(location);}} /></Col>}
+                    <Col sm={2}>Location: </Col>{this.state.edit && <Col><Location handleLocation = {this.getLocation}/></Col>}
                     {!this.state.edit && <Col><p>{post.location}</p></Col>}
                     </Row>
                     </CardTitle>

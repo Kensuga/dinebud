@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import {Link, BrowserRouter as Router, Redirect} from 'react-router-dom'
 import Profile from './Profile'
+import PostMap from '../components/PostMap'
 
 class Home extends React.Component {
   
@@ -37,7 +38,10 @@ class Home extends React.Component {
           }}
         >
           <Card style={{ width: "60vh", boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
-            <CardImg src={prof.image}/>
+            <Row style={{height:"30vh"}}>
+            <Col><CardImg src={prof.image} style={{height:"100%", objectFit:"cover"}}/></Col>
+            <Col><PostMap post={post}/></Col>
+            </Row>
             <CardBody>
               <CardTitle style={{textAlign:"center"}}>
               <h3>{prof.name} is dining at {post.location}</h3>
@@ -74,6 +78,7 @@ class Home extends React.Component {
       content.push(
         <Row style= {{display:"flex", justifyContent:"center", justifyContent:"space-around", margin:"0 auto", width:"vw"}}>
           {arrayContent()}
+          <br/>
         </Row>
         )
     }

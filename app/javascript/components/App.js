@@ -9,6 +9,7 @@ import ViewPost from './pages/ViewPost'
 import Profile from './pages/Profile'
 import CreatePost from './pages/CreatePost'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import Location from './components/Location'
 
 class App extends React.Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class App extends React.Component {
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://3.14.145.134:8080/posts")
+    fetch("http://13.59.38.196:8080/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -53,8 +54,7 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://3.14.145.134:8080/profiles")
-
+    fetch("http://13.59.38.196:8080/profiles")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -74,7 +74,7 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
-    return fetch("http://3.14.145.134:8080/posts", {
+    return fetch("http://13.59.38.196:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -93,7 +93,7 @@ class App extends React.Component {
   }
   
   loginUser = (loginUser) => {
-    return fetch("http://3.14.145.134:8080/users", {
+    return fetch("http://13.59.38.196:8080/users", {
       // converting an object to a string
     	body: JSON.stringify(loginUser),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -112,7 +112,7 @@ class App extends React.Component {
   }
  
   deletePost = () => {
-   fetch(`http://3.14.145.134:8080/posts/${this.state.viewPost.id}`, {
+   fetch(`http://13.59.38.196:8080/posts/${this.state.viewPost.id}`, {
      method: 'DELETE'
     }
   ).then((response) => {
@@ -160,7 +160,7 @@ class App extends React.Component {
             <FaBars style={{color:"white", fontSize:"50px", display:"flex",justifyContent:"center"}} />
           </Col>
           <Col sm={8} style={{display:"flex", alignItems:"center", alignItems:"center"}}>
-            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://3.14.145.134:8080/"}}>
+            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://13.59.38.196:8080/"}}>
                   DineBud
             </h1>
           </Col>
