@@ -27,6 +27,7 @@ class CreatePost extends Component {
     console.log(this.state.newPost)
     // a function call being passed from App.js
     this.props.handleSubmit(this.state.newPost)
+    this.props.resetCreate()
     this.setState({
       success: true
     })
@@ -109,7 +110,6 @@ class CreatePost extends Component {
               </Button>
               { this.state.success && <Redirect to="/"/> }
           </Row>
-          <button onClick={()=> console.log(this.state.newPost.address,this.state.newPost.lat,this.state.newPost.lng)}>Current Coordinates?</button>
         </Container>
         </Container>
       </div>

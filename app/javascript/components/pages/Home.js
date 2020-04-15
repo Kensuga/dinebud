@@ -83,7 +83,7 @@ class Home extends React.Component {
         )
     }
     return (
-      <div style={{backgroundColor:"#0081a8"}}>
+      <div style={{backgroundColor:"#0081a8", justifyContent:"center"}}>
           {content}
       </div>
     );
