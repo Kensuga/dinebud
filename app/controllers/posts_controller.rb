@@ -40,7 +40,7 @@ class PostsController < ApplicationController
     
     private
     def post_params
-        params.require(:post).permit(:location, :schedule_time, :active, :user_id, :partner_id)
+        params.require(:post).permit(:location, :schedule_time, :active, :user_id, :partner_id, :lat, :lng)
     end
     
 end
