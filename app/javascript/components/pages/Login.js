@@ -72,7 +72,6 @@ class Login extends React.Component {
     	method: "POST"
     })
     .then((response) => {
-      console.log(response)
       // if the response is good call the getAppts method
       if(response.ok){
         thats.setState({success:true})

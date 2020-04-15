@@ -6,6 +6,7 @@ import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import ViewPost from './pages/ViewPost'
+import Profile from './pages/Profile'
 import CreatePost from './pages/CreatePost'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import Location from './components/Location'
@@ -17,16 +18,19 @@ class App extends React.Component {
       allPosts: [],
       allProfiles: [],
       viewPost: "",
+      hasProfile:true,
       create: false
       // We start with an empty array, so the component can finish rendering before we make our fetch request
     };
     this.getPosts();
     this.getProfiles();
+    this.checkProfile();
   }
   
   componentWillMount() {
     this.getPosts();
     this.getProfiles();
+    this.checkProfile();
   }
   
   getPosts = () => {
@@ -61,6 +65,7 @@ class App extends React.Component {
       })
       .then(profileArray => {
         this.setState({ allProfiles: profileArray });
+        this.checkProfile()
       });
   };
   
@@ -88,7 +93,6 @@ class App extends React.Component {
   }
   
   loginUser = (loginUser) => {
-    console.log(loginUser)
     return fetch("http://13.59.38.196:8080/users", {
       // converting an object to a string
     	body: JSON.stringify(loginUser),
@@ -118,8 +122,25 @@ class App extends React.Component {
     }
   })
   }
+  checkProfile=()=>{
+    // e.preventDefault()
+    let result = false
+    let {allProfiles} = this.state 
+    let {current_user} = this.props
+    console.log(this.state.allProfiles)
+    for(let i=0; i<allProfiles.length;i++){
+      console.log(allProfiles[i])
+      console.log(current_user.id)
+      if(allProfiles[i].user_id === current_user.id){
+        result = true
+      }
+    }
+    this.setState({hasProfile:result})
+  }
+  
+  
   render () {
-    
+
     const {
       logged_in,
       sign_in_route,
@@ -127,11 +148,10 @@ class App extends React.Component {
       sign_up_route,
       current_user
     } = this.props
-    {console.log(current_user)}
     const {
-      create
+      create,
+      hasProfile
     } = this.state
-    
     return (
       <div style={{backgroundColor:"#0081a8"}}>
       <span>
@@ -160,17 +180,16 @@ class App extends React.Component {
         </Row>
       </span>
         <Router>
-          {logged_in?<Redirect to="/" />:<Redirect to="/login" />}
+          {logged_in && hasProfile && <Redirect to="/" />}
+          {logged_in && !hasProfile && <Redirect to="/createprofile"/>}
+          {!logged_in && <Redirect to="/login"/>}
           { create && <Redirect to="/new" />}
           <Switch>
             <Route exact path="/new" render={props => <CreatePost handleSubmit={this.createPosts} sign_up_route = {sign_up_route}/>} />
             <Route exact path="/login" render={props => <Login handleLoginSubmit={this.loginUser} />} />
             <Route exact path="/view" render={props => <ViewPost profiles={this.state.allProfiles} post={this.state.viewPost} current_user={current_user} deletePost={this.deletePost} />} />
-            <Route
-              exact
-              path="/"
-              render={props => <Home posts={this.state.allPosts} profiles={this.state.allProfiles} viewPost = {this.viewPost} current_user={current_user} />}
-            />
+            <Route exact path="/" render={ props => <Home posts={this.state.allPosts} profiles={this.state.allProfiles} checkProfile = {this.checkProfile} viewPost={this.viewPost} current_user={current_user} />} />
+            <Route exact path="/createprofile" render={props => <Profile current_user={current_user} logged_in={logged_in} checkProfile={this.checkProfile}/>}/>
           </Switch>
         </Router>
         <footer style={{ backgroundColor:"#0081a8", marginTop:"3vh"}}>
