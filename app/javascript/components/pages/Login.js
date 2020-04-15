@@ -42,11 +42,9 @@ class Login extends React.Component {
     	method: "POST"
     })
     .then((response) => {
-      console.log(response)
       // if the response is good call the getAppts method
       if(response.ok){
         thats.setState({success:true})
-        alert("Success")
         location.reload()
       }
     })
@@ -59,7 +57,7 @@ class Login extends React.Component {
   loginSubmit(event){
     let thats = this
     let {email, password } = this.state.loginUser
-    fetch('http://18.222.200.1:8080/users/sign_in', {
+    fetch('http://13.59.38.196:8080/users/sign_in', {
       // converting an object to a string
     	body: JSON.stringify({
     	  user:{
@@ -115,8 +113,6 @@ class Login extends React.Component {
   
   render () {
     let {sign_in, message, loginMessage} = this.state
-    {console.log(this.state.success)}
-    {console.log(this.state.loginUser)}
     return (
       <React.Fragment>
       <div className="login-container">
