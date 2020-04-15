@@ -26,7 +26,7 @@ class Login extends React.Component {
     let thats = this
     let {email, password, password_confirmation } = this.state.newUser
     if(password === password_confirmation){
-    fetch('http://3.15.186.122:8080/users', {
+    fetch('http://3.14.145.134:8080/users', {
       // converting an object to a string
     	body: JSON.stringify({
     	  user:{
@@ -42,7 +42,6 @@ class Login extends React.Component {
     	method: "POST"
     })
     .then((response) => {
-      console.log(response)
       // if the response is good call the getAppts method
       if(response.ok){
         thats.setState({success:true})
@@ -59,7 +58,7 @@ class Login extends React.Component {
   loginSubmit(event){
     let thats = this
     let {email, password } = this.state.loginUser
-    fetch('http://3.15.186.122:8080/users/sign_in', {
+    fetch('http://3.14.145.134:8080/users/sign_in', {
       // converting an object to a string
     	body: JSON.stringify({
     	  user:{
@@ -74,7 +73,6 @@ class Login extends React.Component {
     	method: "POST"
     })
     .then((response) => {
-      console.log(response)
       // if the response is good call the getAppts method
       if(response.ok){
         thats.setState({success:true})
@@ -115,8 +113,6 @@ class Login extends React.Component {
   
   render () {
     let {sign_in, message, loginMessage} = this.state
-    {console.log(this.state.success)}
-    {console.log(this.state.loginUser)}
     return (
       <React.Fragment>
       <div className="login-container">

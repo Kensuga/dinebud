@@ -11,25 +11,10 @@ import {
   Button,
   Container
 } from "reactstrap";
-import {Link, BrowserRouter as Router} from 'react-router-dom'
+import {Link, BrowserRouter as Router, Redirect} from 'react-router-dom'
+import Profile from './Profile'
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      hasProfile: this.profileExists()
-    }
-  }
-  
-  profileExists() {
-    let result = false
-    this.props.profiles.forEach((profile,index) => {
-      if(profile.user_id === this.props.current_user.id){
-        result = true
-      }
-    })
-    return result
-  }
   
   handlePost = (post) => {
     this.props.viewPost(post)
@@ -94,12 +79,7 @@ class Home extends React.Component {
     }
     return (
       <div style={{backgroundColor:"#0081a8"}}>
-        {this.state.hasProfile &&  
           {content}
-        }
-        {!this.state.hasProfile &&
-          <h1>Doesnt have a profile!</h1>
-        }
       </div>
     );
   }

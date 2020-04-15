@@ -6,6 +6,7 @@ import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import ViewPost from './pages/ViewPost'
+import Profile from './pages/Profile'
 import CreatePost from './pages/CreatePost'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 
@@ -16,22 +17,25 @@ class App extends React.Component {
       allPosts: [],
       allProfiles: [],
       viewPost: "",
+      hasProfile:true,
       create: false
       // We start with an empty array, so the component can finish rendering before we make our fetch request
     };
     this.getPosts();
     this.getProfiles();
+    this.checkProfile();
   }
   
   componentWillMount() {
     this.getPosts();
     this.getProfiles();
+    this.checkProfile();
   }
   
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://3.15.186.122:8080/posts")
+    fetch("http://3.14.145.134:8080/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -49,7 +53,7 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://3.15.186.122:8080/profiles")
+    fetch("http://3.14.145.134:8080/profiles")
 
       .then(response => {
         //Make sure we get a successful response back
@@ -61,6 +65,7 @@ class App extends React.Component {
       })
       .then(profileArray => {
         this.setState({ allProfiles: profileArray });
+        this.checkProfile()
       });
   };
   
@@ -69,7 +74,7 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
-    return fetch("http://3.15.186.122:8080/posts", {
+    return fetch("http://3.14.145.134:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -88,8 +93,7 @@ class App extends React.Component {
   }
   
   loginUser = (loginUser) => {
-    console.log(loginUser)
-    return fetch("http://3.15.186.122:8080/users", {
+    return fetch("http://3.14.145.134:8080/users", {
       // converting an object to a string
     	body: JSON.stringify(loginUser),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -108,7 +112,7 @@ class App extends React.Component {
   }
  
   deletePost = () => {
-   fetch(`http://3.15.186.122:8080/posts/${this.state.viewPost.id}`, {
+   fetch(`http://3.14.145.134:8080/posts/${this.state.viewPost.id}`, {
      method: 'DELETE'
     }
   ).then((response) => {
@@ -118,8 +122,25 @@ class App extends React.Component {
     }
   })
   }
+  checkProfile=()=>{
+    // e.preventDefault()
+    let result = false
+    let {allProfiles} = this.state 
+    let {current_user} = this.props
+    console.log(this.state.allProfiles)
+    for(let i=0; i<allProfiles.length;i++){
+      console.log(allProfiles[i])
+      console.log(current_user.id)
+      if(allProfiles[i].user_id === current_user.id){
+        result = true
+      }
+    }
+    this.setState({hasProfile:result})
+  }
+  
+  
   render () {
-    
+
     const {
       logged_in,
       sign_in_route,
@@ -127,11 +148,10 @@ class App extends React.Component {
       sign_up_route,
       current_user
     } = this.props
-    {console.log(current_user)}
     const {
-      create
+      create,
+      hasProfile
     } = this.state
-    
     return (
       <div style={{backgroundColor:"#0081a8"}}>
       <span>
@@ -140,7 +160,7 @@ class App extends React.Component {
             <FaBars style={{color:"white", fontSize:"50px", display:"flex",justifyContent:"center"}} />
           </Col>
           <Col sm={8} style={{display:"flex", alignItems:"center", alignItems:"center"}}>
-            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://18.217.43.101:8080/"}}>
+            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://3.14.145.134:8080/"}}>
                   DineBud
             </h1>
           </Col>
@@ -160,17 +180,16 @@ class App extends React.Component {
         </Row>
       </span>
         <Router>
-          {logged_in?<Redirect to="/" />:<Redirect to="/login" />}
+          {logged_in && hasProfile && <Redirect to="/" />}
+          {logged_in && !hasProfile && <Redirect to="/createprofile"/>}
+          {!logged_in && <Redirect to="/login"/>}
           { create && <Redirect to="/new" />}
           <Switch>
             <Route exact path="/new" render={props => <CreatePost handleSubmit={this.createPosts} sign_up_route = {sign_up_route}/>} />
             <Route exact path="/login" render={props => <Login handleLoginSubmit={this.loginUser} />} />
             <Route exact path="/view" render={props => <ViewPost profiles={this.state.allProfiles} post={this.state.viewPost} current_user={current_user} deletePost={this.deletePost} />} />
-            <Route
-              exact
-              path="/"
-              render={props => <Home posts={this.state.allPosts} profiles={this.state.allProfiles} viewPost = {this.viewPost} current_user={current_user} />}
-            />
+            <Route exact path="/" render={ props => <Home posts={this.state.allPosts} profiles={this.state.allProfiles} checkProfile = {this.checkProfile} viewPost={this.viewPost} current_user={current_user} />} />
+            <Route exact path="/createprofile" render={props => <Profile current_user={current_user} logged_in={logged_in} checkProfile={this.checkProfile}/>}/>
           </Switch>
         </Router>
         <footer style={{ backgroundColor:"#0081a8", marginTop:"3vh"}}>

@@ -10,7 +10,7 @@ class ProfilesController < ApplicationController
     end
     
     def create
-        @profile = current_user.profiles.create(post_params)
+        @profile = Profile.create(post_params)
         if @profile.valid?
             render json: @profile
         else
@@ -39,6 +39,6 @@ class ProfilesController < ApplicationController
     
     private
     def post_params
-        params.require(:posts).permit(:name, :image, :bio)
+        params.require(:profile).permit(:name, :image, :bio, :user_id)
     end
 end
