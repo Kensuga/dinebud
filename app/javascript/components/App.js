@@ -169,7 +169,7 @@ class App extends React.Component {
             <Route
               exact
               path="/"
-              render={props => <Home posts={this.state.allPosts} profiles={this.state.allProfiles} viewPost = {this.viewPost}/>}
+              render={props => <Home posts={this.state.allPosts} profiles={this.state.allProfiles} viewPost = {this.viewPost} current_user={current_user} />}
             />
           </Switch>
         </Router>
