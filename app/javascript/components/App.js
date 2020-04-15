@@ -110,6 +110,10 @@ class App extends React.Component {
       }
     })
   }
+  
+  resetCreate = () => {
+    this.setState({create: false})
+  }
  
   deletePost = () => {
    fetch(`http://13.59.38.196:8080/posts/${this.state.viewPost.id}`, {
@@ -185,11 +189,11 @@ class App extends React.Component {
           {!logged_in && <Redirect to="/login"/>}
           { create && <Redirect to="/new" />}
           <Switch>
-            <Route exact path="/new" render={props => <CreatePost handleSubmit={this.createPosts} sign_up_route = {sign_up_route}/>} />
+            <Route exact path="/createprofile" render={props => <Profile current_user={current_user} logged_in={logged_in} checkProfile={this.checkProfile}/>}/>
+            <Route exact path="/new" render={props => <CreatePost handleSubmit={this.createPosts} sign_up_route = {sign_up_route}  resetCreate = {this.resetCreate}/>} />
             <Route exact path="/login" render={props => <Login handleLoginSubmit={this.loginUser} />} />
             <Route exact path="/view" render={props => <ViewPost profiles={this.state.allProfiles} post={this.state.viewPost} current_user={current_user} deletePost={this.deletePost} />} />
             <Route exact path="/" render={ props => <Home posts={this.state.allPosts} profiles={this.state.allProfiles} checkProfile = {this.checkProfile} viewPost={this.viewPost} current_user={current_user} />} />
-            <Route exact path="/createprofile" render={props => <Profile current_user={current_user} logged_in={logged_in} checkProfile={this.checkProfile}/>}/>
           </Switch>
         </Router>
         <footer style={{ backgroundColor:"#0081a8", marginTop:"3vh"}}>
