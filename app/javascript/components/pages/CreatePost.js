@@ -14,9 +14,7 @@ class CreatePost extends Component {
         location: "",
         schedule_time: "",
         active: true,
-        partner_id: 0,
-        lat: 0,
-        lng: 0
+        partner_id: 0
       },
       date: "",
       time: ""
@@ -34,11 +32,9 @@ class CreatePost extends Component {
     })
   }
 
-  postLocationUpdate = (address, coordinates) => {
+  postLocationUpdate(location) {
     let updatedPost = this.state.newPost;
-    updatedPost.location = address;
-    updatedPost.lat = coordinates.lat;
-    updatedPost.lng = coordinates.lng
+    updatedPost.location = location;
     this.setState({ newPost: updatedPost });
   }
   postDateUpdate(date) {

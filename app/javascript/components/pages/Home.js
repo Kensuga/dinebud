@@ -16,6 +16,29 @@ import Profile from './Profile'
 import PostMap from '../components/PostMap'
 
 class Home extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        hasProfile:true
+      }
+    }
+  componentWillMount() {
+    this.checkProfile();
+  }
+   checkProfile=()=>{
+    // e.preventDefault()
+    let result = false
+    let {profiles} = this.props 
+    let {current_user} = this.props
+    for(let i=0; i<profiles.length;i++){
+      console.log(profiles[i])
+      console.log(current_user.id)
+      if(profiles[i].user_id === current_user.id){
+        result = true 
+      }
+    }
+    this.setState({hasProfile:result})
+  }
   
   handlePost = (post) => {
     this.props.viewPost(post)
@@ -86,10 +109,21 @@ class Home extends React.Component {
         </Row>
         )
     }
-    return (
+    const {hasProfile} = this.state
+    
+    return ( 
+      <React.Fragment>
+      {!hasProfile &&
       <div style={{backgroundColor:"#0081a8", justifyContent:"center"}}>
           {content}
       </div>
+      }
+      {hasProfile &&
+      <div>
+          <Profile />
+      </div>
+      }
+      </React.Fragment>
     );
   }
 }

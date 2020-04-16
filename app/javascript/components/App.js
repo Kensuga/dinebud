@@ -20,7 +20,6 @@ class App extends React.Component {
       allProfiles: [],
       profile:[],
       viewPost: "",
-      hasProfile:true,
       create: false
       // We start with an empty array, so the component can finish rendering before we make our fetch request
     };
@@ -32,7 +31,6 @@ class App extends React.Component {
   componentDidMount() {
     this.getPosts();
     this.getProfiles();
-    this.checkProfile();
   }
   
   getPosts = () => {
@@ -67,7 +65,7 @@ class App extends React.Component {
       })
       .then(profileArray => {
         this.setState({ allProfiles: profileArray });
-        this.checkProfile()
+        
       });
   };
   
@@ -156,7 +154,6 @@ class App extends React.Component {
         this.setState({ profile: profileArray });
       });
   };
-  
   
   render () {
 
