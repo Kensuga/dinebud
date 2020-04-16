@@ -14,10 +14,12 @@ export default function PostMap(props){
         )
     }
     
+    
     const WrappedMap = withScriptjs(withGoogleMap(Map))
     
     return(
         <div style={{ height: "100%"}}>
+            
             <WrappedMap 
             googleMapURL={"https://maps.googleapis.com/maps/api/js?key=AIzaSyAXP9JLMiGPMcgKJCoZtIz3LtuOFBFc53U&v=3.exp&libraries=geometry,drawing,places"}
             loadingElement={<div style={{height:"100%"}}/>}
