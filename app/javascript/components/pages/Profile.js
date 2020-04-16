@@ -66,7 +66,6 @@ class Profile extends React.Component {
         let {logged_in} = this.props
         return (
             <React.Fragment>
-                {logged_in &&
                 <div className="outer-profile-container">
                 <Row>
                     <Col sm={3}>
@@ -139,10 +138,6 @@ class Profile extends React.Component {
                     <Redirect to="/"/>
                     }
                 </div>
-                }
-                {!logged_in &&
-                    <Redirect to="/login"/>
-                }
             </React.Fragment>
         )
     }

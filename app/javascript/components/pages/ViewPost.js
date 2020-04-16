@@ -12,7 +12,7 @@ import {
   Container,
   Input
 } from "reactstrap";
-import { FaTrashAlt, FaEdit, FaCheckCircle } from 'react-icons/fa'
+import { FaTrashAlt, FaCheckCircle } from 'react-icons/fa'
 import { Redirect } from "react-router-dom"
 import Location from '../components/Location'
 import PostMap from '../components/PostMap'
@@ -39,7 +39,6 @@ class ViewPost extends React.Component {
     this.setState({address: address})
     this.setState({lat : coordinates.lat})
     this.setState({lng : coordinates.lng})
-    console.log(address, coordinates)
   }
       
   handleEdit = () => {
@@ -50,7 +49,6 @@ class ViewPost extends React.Component {
     this.setState({edit: false})
     this.postLocationUpdate(this.state.address)
     this.postCoordsUpdate(this.state.lat,this.state.lng)
-    console.log(this.state.editPost)
     this.handleUpdate(this.state.editPost)
   }
   
@@ -109,7 +107,7 @@ class ViewPost extends React.Component {
                   <Container style={{display:"flex", flexDirection: "row"}}>
                   <Row style={{height:"50vh"}}>
                     <Col><CardImg src={prof.image} style={{height:"100%", objectFit:"cover"}}/></Col>
-                    <Col><PostMap post={post}/></Col>
+                    <Col><PostMap post={this.state.editPost}/></Col>
                   </Row>
                   </Container>
                   <CardBody>
@@ -119,26 +117,19 @@ class ViewPost extends React.Component {
                     </Row>
                     <br/>
                     <Row style={{display:'flex'}}>
-                    <Col sm={2}>Location: </Col>{this.state.edit && <Col><Location handleLocation = {this.getLocation}/></Col>}
-                    {!this.state.edit && <Col><p>{post.location}</p></Col>}
+                    <Col sm={2}>Location: </Col>{owner && <Col><Location handleLocation = {this.getLocation} handleSave = {this.handleSave} post ={this.state.editPost} inCreate={false}/></Col>}
+                    {!owner && <Col><p>{this.state.editPost.location}</p></Col>}
                     </Row>
                     </CardTitle>
-                    <CardText>
-                    </CardText>
-                    <CardText>
+                    <CardText style={{textAlign:"end"}}>
+                      {owner?<FaTrashAlt className="pointer" style={{fontSize:"50px", color:"rgb(0,0,0,0.3"}} onClick={()=> this.handleDelete()}/>:<p> </p>}
                     </CardText>
                   </CardBody>
                 </Card>
               </Col>
             </Row>
             <Row style={{display:'flex', justifyContent:"center", marginTop:"3vh"}}>
-            {owner&& !this.state.edit &&
-              <FaEdit  style={{fontSize:"50px", color:"white"}} onClick={()=> this.handleEdit()}/>
-            }
-            {owner && this.state.edit &&
-              <FaCheckCircle style={{fontSize:"50px", color:"white"}} onClick={()=> this.handleSave()}/>
-            }
-            {owner?<FaTrashAlt style={{fontSize:"50px", color:"white"}} onClick={()=> this.handleDelete()}/>:<p> </p>}
+            
             </Row>
             {this.state.success===true && <Redirect to="/"/>}
           </div>

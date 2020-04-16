@@ -179,8 +179,8 @@ class App extends React.Component {
             <FaBars style={{color:"white", fontSize:"50px", display:"flex",justifyContent:"center"}} />
           </Col>
           <Col sm={8} style={{display:"flex", alignItems:"center", alignItems:"center"}}>
-            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}}>
-                  <a href={hasProfile? "http://3.22.130.89:8080/": "http://3.22.130.89:8080/createprofile"} >DineBud</a>
+            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://18.217.160.237:8080/"}}>
+                  DineBud
             </h1>
           </Col>
           <Col style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
@@ -199,9 +199,7 @@ class App extends React.Component {
         </Row>
       </span>
         <Router>
-          {logged_in && hasProfile && <Redirect to="/" />}
-          {logged_in && !hasProfile && <Redirect to="/createprofile"/>}
-          {!logged_in && <Redirect to="/login"/>}
+          {logged_in?hasProfile?<Redirect to="/"/>:<Redirect to="/createprofile"/>:<Redirect to="/login"/>}
           { create && <Redirect to="/new" />}
           <Switch>
             <Route exact path="/createprofile" render={props => <Profile current_user={current_user} logged_in={logged_in} checkProfile={this.checkProfile}/>}/>

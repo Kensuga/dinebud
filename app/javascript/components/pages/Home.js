@@ -55,7 +55,7 @@ class Home extends React.Component {
               <CardText>
               </CardText>
             </CardBody>
-            <Link to="/view"><Button onClick={()=>this.handlePost(post)} style={{width:"100%"}}>View Details</Button></Link>
+            <Link to="/view"><Button className="colorButton" onClick={()=>this.handlePost(post)} style={{width:"100%"}}>View Details</Button></Link>
           </Card>
         </div>
       );
