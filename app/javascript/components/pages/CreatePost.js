@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { Form, Button, Input, Label, FormGroup, FormText } from "reactstrap";
 import { Link, Redirect } from 'react-router-dom'
+import Location from '../components/Location'
+import DateTime from '../components/DateTime'
 
 class CreatePost extends Component {
   constructor(props) {
@@ -24,6 +26,7 @@ class CreatePost extends Component {
     console.log(this.state.newPost)
     // a function call being passed from App.js
     this.props.handleSubmit(this.state.newPost)
+    this.props.resetCreate()
     this.setState({
       success: true
     })
@@ -52,9 +55,15 @@ class CreatePost extends Component {
   }
 
   render() {
+    let selectedDate = Date.current
+    
+    function handleDateChange(date){
+      selectedDate = date
+    }
     return (
       <div style={{backgroundColor:"#0081a8", height:"100vh"}}>
-      <Container>
+        <Container style={{backgroundColor:"white", borderRadius:"5px", height:"50vh"}}>
+        <Row style={{display:"flex",justifyContent:"center", marginTop:"5vh",marginBottom:"5vh"}}>
         <h1
           style={{
             textAlign: "center",
@@ -62,49 +71,15 @@ class CreatePost extends Component {
         >
           Create A New Post
         </h1>
-        <Container style={{backgroundColor:"white", borderRadius:"5px"}}>
-            <Row style={{ display: "flex", justifyContent: "center" }}>
-              <Form>
-                <FormGroup>
-                  <Label for="location">Location:</Label>
-                  <Input
-                    type="text"
-                    id="location"
-                    placeholder="Location"
-                    onChange={e => {
-                      let location = e.target.value;
-                      this.postLocationUpdate(location);
-                    }} />
-                </FormGroup>
-                </Form>
-            </Row>
+        </Row>
+          <Row style={{display:'flex',justifyContent:"center",  flexDirection:"column"}}>
+          <Row style={{display:"flex",justifyContent:"center"}}>
+          <Col>
+            <Location handleLocation = { this.postLocationUpdate} post = {this.state.newPost}  inCreate = {true}/>
+          </Col>
+          </Row>
             <Row style={{display:"flex", justifyContent:"center", justifyContent:"space-around"}}>
-                <Form inline>
-                    <FormGroup>
-                        <Label for="exampleDate">Date</Label>
-                        <Input
-                          type="date"
-                          name="date"
-                          id="dateate"
-                          placeholder="date placeholder"
-                          onChange={e => {
-                              let date = e.target.value;
-                              console.log(date);
-                              this.postDateUpdate(date);
-                          }} />
-                        <Label for="exampleTime">Time</Label>
-                        <Input
-                          type="time"
-                          name="time"
-                          id="time"
-                          placeholder="time placeholder"
-                          onChange={e => {
-                              let time = e.target.value;
-                              console.log(time);
-                              this.postTimeUpdate(time)
-                          }} />
-                    </FormGroup>
-                </Form>
+                <DateTime />
             </Row>
           <Row style={{ display: "flex", justifyContent: "center" }}>
               <Button
@@ -116,7 +91,7 @@ class CreatePost extends Component {
               </Button>
               { this.state.success && <Redirect to="/"/> }
           </Row>
-        </Container>
+          </Row>
         </Container>
       </div>
     );

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Atma:wght@300;700&family=Courgette&family=Lobster&family=Pacifico&family=Satisfy&display=swap');
 
+
 .test-one{
     font-family: Lobster
 }
@@ -133,4 +134,12 @@ button:active {
 }
 .profile-row {
     margin-top: 25px;
+}
+
+.pointer :hover{
+    cursor: pointer;
+}
+
+.colorButton{
+    background-image: linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);
 }

@@ -11,7 +11,7 @@ import {
   Button,
   Container
 } from "reactstrap";
-import {Link, BrowserRouter as Router, Redirect} from 'react-router-dom'
+import {Link, BrowserRouter as Router, Redirect,Switch,Route} from 'react-router-dom'
 import Profile from './Profile'
 import PostMap from '../components/PostMap'
 
@@ -43,6 +43,9 @@ class Home extends React.Component {
   handlePost = (post) => {
     this.props.viewPost(post)
   }
+  handleProfile = (profile) => {
+    this.props.getProfile(profile)
+  }
   
   render () {
     let map = this.props.posts.map((post, i) => {
@@ -67,14 +70,15 @@ class Home extends React.Component {
             </Row>
             <CardBody>
               <CardTitle style={{textAlign:"center"}}>
-              <h3>{prof.name} is dining at {post.location}</h3>
+              <h3><Link to="/profile" onClick={() => this.handleProfile(prof.user_id)}>{prof.name}</Link> is dining at {post.location}</h3>
+        
               </CardTitle>
               <CardText>
               </CardText>
               <CardText>
               </CardText>
             </CardBody>
-            <Link to="/view"><Button onClick={()=>this.handlePost(post)} style={{width:"100%"}}>View Details</Button></Link>
+            <Link to="/view"><Button className="colorButton" onClick={()=>this.handlePost(post)} style={{width:"100%"}}>View Details</Button></Link>
           </Card>
         </div>
       );
@@ -105,13 +109,12 @@ class Home extends React.Component {
         </Row>
         )
     }
-    
     const {hasProfile} = this.state
     
     return ( 
       <React.Fragment>
       {!hasProfile &&
-      <div style={{backgroundColor:"#0081a8"}}>
+      <div style={{backgroundColor:"#0081a8", justifyContent:"center"}}>
           {content}
       </div>
       }
