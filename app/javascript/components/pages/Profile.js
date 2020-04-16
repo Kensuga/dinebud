@@ -19,7 +19,7 @@ class Profile extends React.Component {
     let thats = this
     let value = false
     let { name, image, bio} = this.state.profile
-    fetch('http://3.14.145.134:8080/profiles', {
+    fetch('http://3.22.130.89:8080/profiles', {
       // converting an object to a string
     	body: JSON.stringify({
     	    profile:{
@@ -64,7 +64,6 @@ class Profile extends React.Component {
     
     render () {
         let {logged_in} = this.props
-        {console.log(this.state.success)}
         return (
             <React.Fragment>
                 <div className="outer-profile-container">
