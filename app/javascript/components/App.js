@@ -36,7 +36,11 @@ class App extends React.Component {
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
+<<<<<<< HEAD
     fetch("http://3.19.246.1:8080/posts")
+=======
+    fetch("http://18.217.160.237:8080/posts")
+>>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -54,7 +58,11 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
+<<<<<<< HEAD
     fetch("http://3.19.246.1:8080/profiles")
+=======
+    fetch("http://18.217.160.237:8080/profiles")
+>>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -74,7 +82,11 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
+<<<<<<< HEAD
     return fetch("http://3.19.246.1:8080/posts", {
+=======
+    return fetch("http://18.217.160.237:8080/posts", {
+>>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -93,7 +105,11 @@ class App extends React.Component {
   }
   
   loginUser = (loginUser) => {
+<<<<<<< HEAD
     return fetch("http://3.19.246.1:8080/users", {
+=======
+    return fetch("http://18.217.160.237:8080/users", {
+>>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
       // converting an object to a string
     	body: JSON.stringify(loginUser),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -116,7 +132,11 @@ class App extends React.Component {
   }
  
   deletePost = () => {
+<<<<<<< HEAD
    fetch(`http://3.19.246.1:8080/posts/${this.state.viewPost.id}`, {
+=======
+   fetch(`http://18.217.160.237:8080/posts/${this.state.viewPost.id}`, {
+>>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
      method: 'DELETE'
     }
   ).then((response) => {
@@ -141,7 +161,11 @@ class App extends React.Component {
   getProfile = (user) => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
+<<<<<<< HEAD
     fetch(`http://3.19.246.1:8080/profiles/${user}`)
+=======
+    fetch(`http://18.217.160.237:8080/profiles/${user}`)
+>>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
