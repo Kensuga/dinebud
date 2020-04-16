@@ -109,16 +109,17 @@ class Home extends React.Component {
         </Row>
         )
     }
+    
     const {hasProfile} = this.state
     
     return ( 
       <React.Fragment>
-      {!hasProfile &&
-      <div style={{backgroundColor:"#0081a8", justifyContent:"center"}}>
+      {hasProfile &&
+      <div style={{backgroundColor:"#0081a8"}}>
           {content}
       </div>
       }
-      {hasProfile &&
+      {!hasProfile &&
       <div>
           <Profile />
       </div>
