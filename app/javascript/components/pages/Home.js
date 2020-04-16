@@ -11,7 +11,7 @@ import {
   Button,
   Container
 } from "reactstrap";
-import {Link, BrowserRouter as Router, Redirect} from 'react-router-dom'
+import {Link, BrowserRouter as Router, Redirect,Switch,Route} from 'react-router-dom'
 import Profile from './Profile'
 import PostMap from '../components/PostMap'
 
@@ -19,6 +19,9 @@ class Home extends React.Component {
   
   handlePost = (post) => {
     this.props.viewPost(post)
+  }
+  handleProfile = (profile) => {
+    this.props.getProfile(profile)
   }
   
   render () {
@@ -44,7 +47,8 @@ class Home extends React.Component {
             </Row>
             <CardBody>
               <CardTitle style={{textAlign:"center"}}>
-              <h3>{prof.name} is dining at {post.location}</h3>
+              <h3><Link to="/profile" onClick={() => this.handleProfile(prof.user_id)}>{prof.name}</Link> is dining at {post.location}</h3>
+        
               </CardTitle>
               <CardText>
               </CardText>
