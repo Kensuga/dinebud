@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { Form, Button, Input, Label, FormGroup, FormText } from "reactstrap";
 import { Link, Redirect } from 'react-router-dom'
-import Location from '../components/Location'
 
 class CreatePost extends Component {
   constructor(props) {
@@ -13,9 +12,7 @@ class CreatePost extends Component {
         location: "",
         schedule_time: "",
         active: true,
-        partner_id: 0,
-        lat: 0,
-        lng: 0
+        partner_id: 0
       },
       date: "",
       time: ""
@@ -32,11 +29,9 @@ class CreatePost extends Component {
     })
   }
 
-  postLocationUpdate = (address, coordinates) => {
+  postLocationUpdate(location) {
     let updatedPost = this.state.newPost;
-    updatedPost.location = address;
-    updatedPost.lat = coordinates.lat;
-    updatedPost.lng = coordinates.lng
+    updatedPost.location = location;
     this.setState({ newPost: updatedPost });
   }
   postDateUpdate(date) {
@@ -68,8 +63,20 @@ class CreatePost extends Component {
           Create A New Post
         </h1>
         <Container style={{backgroundColor:"white", borderRadius:"5px"}}>
-            <Row style={{ display: "flex", justifyContent: "center", width:"50%" }}>
-              <Location handleLocation = { this.postLocationUpdate} />
+            <Row style={{ display: "flex", justifyContent: "center" }}>
+              <Form>
+                <FormGroup>
+                  <Label for="location">Location:</Label>
+                  <Input
+                    type="text"
+                    id="location"
+                    placeholder="Location"
+                    onChange={e => {
+                      let location = e.target.value;
+                      this.postLocationUpdate(location);
+                    }} />
+                </FormGroup>
+                </Form>
             </Row>
             <Row style={{display:"flex", justifyContent:"center", justifyContent:"space-around"}}>
                 <Form inline>
@@ -109,7 +116,6 @@ class CreatePost extends Component {
               </Button>
               { this.state.success && <Redirect to="/"/> }
           </Row>
-          <button onClick={()=> console.log(this.state.newPost.address,this.state.newPost.lat,this.state.newPost.lng)}>Current Coordinates?</button>
         </Container>
         </Container>
       </div>

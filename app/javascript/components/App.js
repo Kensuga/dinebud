@@ -18,29 +18,23 @@ class App extends React.Component {
       allPosts: [],
       allProfiles: [],
       viewPost: "",
-      hasProfile:true,
       create: false
       // We start with an empty array, so the component can finish rendering before we make our fetch request
     };
     this.getPosts();
     this.getProfiles();
-    this.checkProfile();
+    
   }
   
   componentWillMount() {
     this.getPosts();
     this.getProfiles();
-    this.checkProfile();
   }
   
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-<<<<<<< HEAD
-    fetch("http://18.219.82.25:8080/posts")
-=======
-    fetch("http://13.59.38.196:8080/posts")
->>>>>>> 0c6d47f7469272d742a753729c29ac2cc908dde7
+    fetch("http://3.19.246.1:8080/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -58,11 +52,7 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-<<<<<<< HEAD
-    fetch("http://18.219.82.25:8080/profiles")
-=======
-    fetch("http://13.59.38.196:8080/profiles")
->>>>>>> 0c6d47f7469272d742a753729c29ac2cc908dde7
+    fetch("http://3.19.246.1:8080/profiles")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -73,7 +63,7 @@ class App extends React.Component {
       })
       .then(profileArray => {
         this.setState({ allProfiles: profileArray });
-        this.checkProfile()
+        
       });
   };
   
@@ -82,11 +72,7 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
-<<<<<<< HEAD
-    return fetch("http://18.219.82.25:8080/posts", {
-=======
-    return fetch("http://13.59.38.196:8080/posts", {
->>>>>>> 0c6d47f7469272d742a753729c29ac2cc908dde7
+    return fetch("http://3.19.246.1:8080/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -105,12 +91,8 @@ class App extends React.Component {
   }
   
   loginUser = (loginUser) => {
-<<<<<<< HEAD
     console.log(loginUser)
-    return fetch("http://18.219.82.25:8080/users", {
-=======
-    return fetch("http://13.59.38.196:8080/users", {
->>>>>>> 0c6d47f7469272d742a753729c29ac2cc908dde7
+    return fetch("http://3.19.246.1:8080/users", {
       // converting an object to a string
     	body: JSON.stringify(loginUser),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -129,11 +111,7 @@ class App extends React.Component {
   }
  
   deletePost = () => {
-<<<<<<< HEAD
-   fetch(`http://18.219.82.25:8080/posts/${this.state.viewPost.id}`, {
-=======
-   fetch(`http://13.59.38.196:8080/posts/${this.state.viewPost.id}`, {
->>>>>>> 0c6d47f7469272d742a753729c29ac2cc908dde7
+   fetch(`http://3.19.246.1:8080/posts/${this.state.viewPost.id}`, {
      method: 'DELETE'
     }
   ).then((response) => {
@@ -143,22 +121,6 @@ class App extends React.Component {
     }
   })
   }
-  checkProfile=()=>{
-    // e.preventDefault()
-    let result = false
-    let {allProfiles} = this.state 
-    let {current_user} = this.props
-    console.log(this.state.allProfiles)
-    for(let i=0; i<allProfiles.length;i++){
-      console.log(allProfiles[i])
-      console.log(current_user.id)
-      if(allProfiles[i].user_id === current_user.id){
-        result = true
-      }
-    }
-    this.setState({hasProfile:result})
-  }
-  
   
   render () {
 
@@ -181,11 +143,7 @@ class App extends React.Component {
             <FaBars style={{color:"white", fontSize:"50px", display:"flex",justifyContent:"center"}} />
           </Col>
           <Col sm={8} style={{display:"flex", alignItems:"center", alignItems:"center"}}>
-<<<<<<< HEAD
-            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://18.219.82.25:8080/"}}>
-=======
-            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://13.59.38.196:8080/"}}>
->>>>>>> 0c6d47f7469272d742a753729c29ac2cc908dde7
+            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://3.19.246.1:8080/"}}>
                   DineBud
             </h1>
           </Col>
@@ -205,8 +163,7 @@ class App extends React.Component {
         </Row>
       </span>
         <Router>
-          {logged_in && hasProfile && <Redirect to="/" />}
-          {logged_in && !hasProfile && <Redirect to="/createprofile"/>}
+          {logged_in && <Redirect to="/" />}
           {!logged_in && <Redirect to="/login"/>}
           { create && <Redirect to="/new" />}
           <Switch>
