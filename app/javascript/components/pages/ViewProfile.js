@@ -17,7 +17,7 @@ export default class ViewProfile extends React.Component{
     render(){
         let {profile} = this.props
         let dines = 0
-        let rep = "User has no reputation history"
+        let rep = " has no reputation history"
         if(profile.number_of_dines !== null){
             dines = profile.number_of_dines
         }
@@ -43,7 +43,7 @@ export default class ViewProfile extends React.Component{
                                         <h4>Number of Dines</h4>
                                         <p>{dines}</p>
                                         <h4>Reputation</h4>
-                                        <p>{rep}</p>
+                                        <p>{profile.name}{rep}</p>
                                     </CardBody>
                                 </CardBody>
                             </Col>
