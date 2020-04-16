@@ -3,6 +3,14 @@ import { Container, Row, Col } from "reactstrap";
 import { Form, Button, Input, Label, FormGroup, FormText } from "reactstrap";
 import { Link, Redirect } from 'react-router-dom'
 import Location from '../components/Location'
+import DateTime from '../components/DateTime'
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import 'date-fns';
 
 class CreatePost extends Component {
   constructor(props) {
@@ -58,9 +66,15 @@ class CreatePost extends Component {
   }
 
   render() {
+    let selectedDate = Date.current
+    
+    function handleDateChange(date){
+      selectedDate = date
+    }
     return (
       <div style={{backgroundColor:"#0081a8", height:"100vh"}}>
-      <Container>
+        <Container style={{backgroundColor:"white", borderRadius:"5px", height:"50vh"}}>
+        <Row style={{display:"flex",justifyContent:"center", marginTop:"5vh",marginBottom:"5vh"}}>
         <h1
           style={{
             textAlign: "center",
@@ -68,10 +82,13 @@ class CreatePost extends Component {
         >
           Create A New Post
         </h1>
-        <Container style={{backgroundColor:"white", borderRadius:"5px"}}>
-            <Row style={{ display: "flex", justifyContent: "center", width:"50%" }}>
-              <Location handleLocation = { this.postLocationUpdate} />
-            </Row>
+        </Row>
+          <Row style={{display:'flex',justifyContent:"center",  flexDirection:"column"}}>
+          <Row style={{display:"flex",justifyContent:"center"}}>
+          <Col>
+            <Location handleLocation = { this.postLocationUpdate} post = {this.state.newPost}  inCreate = {true}/>
+          </Col>
+          </Row>
             <Row style={{display:"flex", justifyContent:"center", justifyContent:"space-around"}}>
                 <Form inline>
                     <FormGroup>
@@ -110,7 +127,32 @@ class CreatePost extends Component {
               </Button>
               { this.state.success && <Redirect to="/"/> }
           </Row>
-        </Container>
+          <Row>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                margin="normal"
+                id="date-picker-dialog"
+                label="Date picker dialog"
+                format="MM/dd/yyyy"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+              <KeyboardTimePicker
+                margin="normal"
+                id="time-picker"
+                label="Time picker"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change time',
+                }}
+              />
+            </MuiPickersUtilsProvider>
+          </Row>
+          </Row>
         </Container>
       </div>
     );

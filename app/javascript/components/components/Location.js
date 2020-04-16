@@ -1,6 +1,7 @@
 import React from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import {Input, Row, Col, Button} from 'reactstrap'
+import {FaEdit} from 'react-icons/fa'
 
 
 export default function Location(props){
@@ -16,17 +17,18 @@ const handleSelect = async (value) => {
     const latLng = await getLatLng(results[0]);
     setAddress(value)
     setCoordinates(latLng);
+    props.handleLocation(value,latLng)
 }
 
-
+const [edit, setEdit] = React.useState(props.inCreate?true:false)
 
 return(
-    <div>
-        <Row>
+    <div style={{width:"100%"}}>
         <Col>
+        {edit &&
         <PlacesAutocomplete 
             value={address} 
-            onChange={setAddress } 
+            onChange={setAddress} 
             onSelect={handleSelect}
         >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading})=> (
@@ -48,13 +50,18 @@ return(
               </div>
             </div>)}
         </PlacesAutocomplete>
+        }
+        {!edit &&
+            props.post.location
+        }
         </Col>
-         <Col>
-            <Button onClick={() => props.handleLocation(address,coordinates)}>
+         {props.inCreate?<p/>:edit?<Col><Button onClick={() => {
+            props.handleSave()
+            setEdit(false)
+            }}>
                 Save Changes
-            </Button>
-          </Col> 
-      </Row>
+            </Button></Col>:<Col><FaEdit className="pointer" onClick={()=> {setEdit(true)}}/></Col>
+         }
     </div>
     );
 }
