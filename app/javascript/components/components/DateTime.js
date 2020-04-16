@@ -8,9 +8,9 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-export default function DateTime() {
+export default function MaterialUIPickers() {
   // The first commit of Material-UI
-  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+  const [selectedDate, setSelectedDate] = React.useState(Date.current);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -41,7 +41,6 @@ export default function DateTime() {
           }}
         />
       </Grid>
-      <button onClick={console.log(selectedDate)}>What is the date?</button>
     </MuiPickersUtilsProvider>
   );
 }
