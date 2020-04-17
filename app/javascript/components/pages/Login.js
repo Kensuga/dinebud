@@ -57,7 +57,7 @@ class Login extends React.Component {
   loginSubmit(event){
     let thats = this
     let {email, password } = this.state.loginUser
-    fetch('http://localhost:3000/users/sign_in', {
+    fetch('https://dinebud.herokuapp.com/users/sign_in', {
       // converting an object to a string
     	body: JSON.stringify({
     	  user:{

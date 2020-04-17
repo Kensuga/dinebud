@@ -67,7 +67,7 @@ class ViewPost extends React.Component {
 
 
   handleUpdate = (post) => {
-    fetch(`http://localhost:3000/posts/${post.id}`,
+    fetch(`https://dinebud.herokuapp.com/posts/${post.id}`,
     {
       method: 'PUT',
       body: JSON.stringify({post: post}),

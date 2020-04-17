@@ -36,7 +36,7 @@ class App extends React.Component {
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://localhost:3000/posts")
+    fetch("https://dinebud.herokuapp.com/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -54,7 +54,7 @@ class App extends React.Component {
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-    fetch("http://localhost:3000/profiles")
+    fetch("https://dinebud.herokuapp.com/profiles")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -74,7 +74,7 @@ class App extends React.Component {
   }
   
   createPosts = (newPost) => {
-    return fetch("http://localhost:3000/posts", {
+    return fetch("https://dinebud.herokuapp.com/posts", {
       // converting an object to a string
     	body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -93,7 +93,7 @@ class App extends React.Component {
   }
   
   loginUser = (loginUser) => {
-    return fetch("http://localhost:3000/users", {
+    return fetch("https://dinebud.herokuapp.com/users", {
       // converting an object to a string
     	body: JSON.stringify(loginUser),
       // specify the info being sent in JSON and the info returning should be JSON
@@ -116,7 +116,7 @@ class App extends React.Component {
   }
  
   deletePost = () => {
-   fetch(`http://localhost:3000/posts/${this.state.viewPost.id}`, {
+   fetch(`https://dinebud.herokuapp.com/posts/${this.state.viewPost.id}`, {
      method: 'DELETE'
     }
   ).then((response) => {
@@ -164,7 +164,7 @@ class App extends React.Component {
             <FaBars style={{color:"white", fontSize:"50px", display:"flex",justifyContent:"center"}} />
           </Col>
           <Col sm={8} style={{display:"flex", alignItems:"center", alignItems:"center"}}>
-            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://localhost:3000/"}}>
+            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "https://dinebud.herokuapp.com/"}}>
                   DineBud
             </h1>
           </Col>
