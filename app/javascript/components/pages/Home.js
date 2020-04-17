@@ -82,7 +82,6 @@ class Home extends React.Component {
       content.push(
         <Row style= {{display:"flex", justifyContent:"center", justifyContent:"space-around", margin:"0 auto", width:"vw"}}>
           {arrayContent()}
-          <br/>
         </Row>
         )
     }
