@@ -19,7 +19,7 @@ class Profile extends React.Component {
     let thats = this
     let value = false
     let { name, image, bio} = this.state.profile
-    fetch('http://3.19.246.1:8080/profiles', {
+    fetch('http://18.222.249.175:8080/profiles', {
       // converting an object to a string
     	body: JSON.stringify({
     	    profile:{

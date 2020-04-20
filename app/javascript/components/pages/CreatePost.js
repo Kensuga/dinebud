@@ -4,7 +4,7 @@ import { Form, Button, Input, Label, FormGroup, FormText } from "reactstrap";
 import { Link, Redirect } from 'react-router-dom'
 import Location from '../components/Location'
 import DateTime from '../components/DateTime'
-
+ 
 class CreatePost extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +14,9 @@ class CreatePost extends Component {
         location: "",
         schedule_time: "",
         active: true,
-        partner_id: 0
+        partner_id: 0,
+        lat: 0,
+        lng: 0
       },
       date: "",
       time: ""
@@ -31,32 +33,34 @@ class CreatePost extends Component {
       success: true
     })
   }
-
-  postLocationUpdate(location) {
+ 
+  postLocationUpdate = (address, coordinates) => {
     let updatedPost = this.state.newPost;
-    updatedPost.location = location;
+    updatedPost.location = address;
+    updatedPost.lat = coordinates.lat;
+    updatedPost.lng = coordinates.lng
     this.setState({ newPost: updatedPost });
   }
   postDateUpdate(date) {
-    this.setState({date: date}) 
+    this.setState({date: date})
     this.postScheduleUpdate()
   }
-  
+ 
   postTimeUpdate(time) {
     this.setState({time: time})
     this.postScheduleUpdate()
   }
-  
+ 
   postScheduleUpdate(){
       let realDate = this.state.date.concat(this.state.time)
       console.log(this.state.date.concat(this.state.time))
       console.log(realDate)
       this.setState({ schedule_time: realDate})
   }
-
+ 
   render() {
     let selectedDate = Date.current
-    
+   
     function handleDateChange(date){
       selectedDate = date
     }
@@ -97,5 +101,5 @@ class CreatePost extends Component {
     );
   }
 }
-
+ 
 export default CreatePost;

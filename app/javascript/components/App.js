@@ -11,7 +11,7 @@ import CreatePost from './pages/CreatePost'
 import ViewProfile from './pages/ViewProfile'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import Location from './components/Location'
-
+ 
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +20,7 @@ class App extends React.Component {
       allProfiles: [],
       profile:[],
       viewPost: "",
+      hasProfile:true,
       create: false
       // We start with an empty array, so the component can finish rendering before we make our fetch request
     };
@@ -27,20 +28,17 @@ class App extends React.Component {
     // this.getProfiles();
     // this.checkProfile();
   }
-  
+ 
   componentDidMount() {
     this.getPosts();
     this.getProfiles();
+    this.checkProfile();
   }
-  
+ 
   getPosts = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-<<<<<<< HEAD
-    fetch("http://3.19.246.1:8080/posts")
-=======
-    fetch("http://18.217.160.237:8080/posts")
->>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
+    fetch("http://18.222.249.175:8080/posts")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -54,15 +52,11 @@ class App extends React.Component {
         this.setState({ allPosts: postArray });
       });
   };
-  
+ 
   getProfiles = () => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-<<<<<<< HEAD
-    fetch("http://3.19.246.1:8080/profiles")
-=======
-    fetch("http://18.217.160.237:8080/profiles")
->>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
+    fetch("http://18.222.249.175:8080/profiles")
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -73,28 +67,24 @@ class App extends React.Component {
       })
       .then(profileArray => {
         this.setState({ allProfiles: profileArray });
-        
+        this.checkProfile()
       });
   };
-  
+ 
   viewPost = (post) => {
     this.setState({viewPost: post})
   }
-  
+ 
   createPosts = (newPost) => {
-<<<<<<< HEAD
-    return fetch("http://3.19.246.1:8080/posts", {
-=======
-    return fetch("http://18.217.160.237:8080/posts", {
->>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
+    return fetch("http://18.222.249.175:8080/posts", {
       // converting an object to a string
-    	body: JSON.stringify(newPost),
+        body: JSON.stringify(newPost),
       // specify the info being sent in JSON and the info returning should be JSON
-    	headers: {
-    		"Content-Type": "application/json"
-    	},
+        headers: {
+            "Content-Type": "application/json"
+        },
       // HTTP verb so the correct endpoint is invoked on the server
-    	method: "POST"
+        method: "POST"
     })
     .then((response) => {
       // if the response is good call the getAppts method
@@ -103,21 +93,17 @@ class App extends React.Component {
       }
     })
   }
-  
+ 
   loginUser = (loginUser) => {
-<<<<<<< HEAD
-    return fetch("http://3.19.246.1:8080/users", {
-=======
-    return fetch("http://18.217.160.237:8080/users", {
->>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
+    return fetch("http://18.222.249.175:8080/users", {
       // converting an object to a string
-    	body: JSON.stringify(loginUser),
+        body: JSON.stringify(loginUser),
       // specify the info being sent in JSON and the info returning should be JSON
-    	headers: {
-    		"Content-Type": "application/json"
-    	},
+        headers: {
+            "Content-Type": "application/json"
+        },
       // HTTP verb so the correct endpoint is invoked on the server
-    	method: "POST"
+        method: "POST"
     })
     .then((response) => {
       // if the response is good call the getAppts method
@@ -126,17 +112,13 @@ class App extends React.Component {
       }
     })
   }
-  
+ 
   resetCreate = () => {
     this.setState({create: false})
   }
  
   deletePost = () => {
-<<<<<<< HEAD
-   fetch(`http://3.19.246.1:8080/posts/${this.state.viewPost.id}`, {
-=======
-   fetch(`http://18.217.160.237:8080/posts/${this.state.viewPost.id}`, {
->>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
+   fetch(`http://18.222.249.175:8080/posts/${this.state.viewPost.id}`, {
      method: 'DELETE'
     }
   ).then((response) => {
@@ -149,7 +131,7 @@ class App extends React.Component {
   checkProfile=()=>{
     // e.preventDefault()
     let result = false
-    let {allProfiles} = this.state 
+    let {allProfiles} = this.state
     let {current_user} = this.props
     for(let i=0; i<allProfiles.length;i++){
       if(allProfiles[i].user_id === current_user.id){
@@ -161,11 +143,7 @@ class App extends React.Component {
   getProfile = (user) => {
     // Making a fetch request to the url of our Rails app
     // fetch returns a promise
-<<<<<<< HEAD
-    fetch(`http://3.19.246.1:8080/profiles/${user}`)
-=======
-    fetch(`http://18.217.160.237:8080/profiles/${user}`)
->>>>>>> 09a29dd431423f576886ed498b0e531043d186e2
+    fetch(`http://18.222.249.175:8080/profiles/${user}`)
       .then(response => {
         //Make sure we get a successful response back
         if (response.status === 200) {
@@ -178,9 +156,10 @@ class App extends React.Component {
         this.setState({ profile: profileArray });
       });
   };
-  
+ 
+ 
   render () {
-
+ 
     const {
       logged_in,
       sign_in_route,
@@ -200,7 +179,7 @@ class App extends React.Component {
             <FaBars style={{color:"white", fontSize:"50px", display:"flex",justifyContent:"center"}} />
           </Col>
           <Col sm={8} style={{display:"flex", alignItems:"center", alignItems:"center"}}>
-            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://3.19.246.1:8080/"}}>
+            <h1 className={"pacifico"} style={{color:"white", fontSize:"75px"}} onClick={()=> {window.location.href = "http://18.222.249.175:8080/"}}>
                   DineBud
             </h1>
           </Col>
@@ -238,5 +217,5 @@ class App extends React.Component {
     );
   }
 }
-
+ 
 export default App

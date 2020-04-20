@@ -14,39 +14,16 @@ import {
 import {Link, BrowserRouter as Router, Redirect,Switch,Route} from 'react-router-dom'
 import Profile from './Profile'
 import PostMap from '../components/PostMap'
-
+ 
 class Home extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        hasProfile:true
-      }
-    }
-  componentWillMount() {
-    this.checkProfile();
-  }
-   checkProfile=()=>{
-    // e.preventDefault()
-    let result = false
-    let {profiles} = this.props 
-    let {current_user} = this.props
-    for(let i=0; i<profiles.length;i++){
-      console.log(profiles[i])
-      console.log(current_user.id)
-      if(profiles[i].user_id === current_user.id){
-        result = true 
-      }
-    }
-    this.setState({hasProfile:result})
-  }
-  
+ 
   handlePost = (post) => {
     this.props.viewPost(post)
   }
   handleProfile = (profile) => {
     this.props.getProfile(profile)
   }
-  
+ 
   render () {
     let map = this.props.posts.map((post, i) => {
       let prof = ""
@@ -55,7 +32,7 @@ class Home extends React.Component {
           prof = profile
         }
       })
-      
+     
       return (
         <div key={i}
           style={{
@@ -71,7 +48,7 @@ class Home extends React.Component {
             <CardBody>
               <CardTitle style={{textAlign:"center"}}>
               <h3><Link to="/profile" onClick={() => this.handleProfile(prof.user_id)}>{prof.name}</Link> is dining at {post.location}</h3>
-        
+       
               </CardTitle>
               <CardText>
               </CardText>
@@ -83,9 +60,9 @@ class Home extends React.Component {
         </div>
       );
     });
-    
+   
     let limiter = Math.ceil(map.length/3)
-    
+   
     let content = []
     let tracker = 0
     const arrayContent = () => {
@@ -100,7 +77,7 @@ class Home extends React.Component {
       }
       return array
     }
-    
+   
     for(let i = 0; i< limiter; i++){
       content.push(
         <Row style= {{display:"flex", justifyContent:"center", justifyContent:"space-around", margin:"0 auto", width:"vw"}}>
@@ -109,24 +86,12 @@ class Home extends React.Component {
         </Row>
         )
     }
-    
-    const {hasProfile} = this.state
-    
-    return ( 
-      <React.Fragment>
-      {hasProfile &&
-      <div style={{backgroundColor:"#0081a8"}}>
+    return (
+      <div style={{backgroundColor:"#0081a8", justifyContent:"center"}}>
           {content}
       </div>
-      }
-      {!hasProfile &&
-      <div>
-          <Profile />
-      </div>
-      }
-      </React.Fragment>
     );
   }
 }
-
+ 
 export default Home
