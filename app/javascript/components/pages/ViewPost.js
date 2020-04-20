@@ -64,6 +64,18 @@ class ViewPost extends React.Component {
     updateEdit.location = location
     this.setState({editPost : updateEdit})
   }
+  
+  handleJoin = () =>{
+    let updateEdit = this.state.editPost
+    updateEdit.partner_id = this.props.current_user.id
+    this.setState({editPost : updateEdit}, this.handleUpdate(this.state.editPost))
+  }
+  
+  handleLeave = () =>{
+    let updateEdit = this.state.editPost
+    updateEdit.partner_id = 0
+    this.setState({editPost: updateEdit}, this.handleUpdate(this.state.editPost))
+  }
 
 
   handleUpdate = (post) => {
@@ -81,6 +93,8 @@ class ViewPost extends React.Component {
   
   render () {
       let owner = false
+      let joined = false
+      let full = false;
       let prof = ""
       const {
         post
@@ -94,6 +108,16 @@ class ViewPost extends React.Component {
       if(this.props.current_user.id === post.user_id){
         owner = true
       }
+      
+      if(this.props.current_user.id === post.partner_id){
+        joined = true;
+      }
+      
+      if(this.state.editPost.partner_id !== 0){
+        full = true;
+      }
+      
+      console.log(this.state.editPost)
       return (
           <div style={{backgroundColor:"#0081a8"}}>
             <Row>
@@ -123,6 +147,7 @@ class ViewPost extends React.Component {
                     </CardTitle>
                     <CardText style={{textAlign:"end"}}>
                       {owner?<FaTrashAlt className="pointer" style={{fontSize:"50px", color:"rgb(0,0,0,0.3"}} onClick={()=> this.handleDelete()}/>:<p> </p>}
+                      {!owner?full?joined?<Button onClick={()=> this.handleLeave()}>Leave Post</Button>:<p/>:<Button onClick={()=> this.handleJoin()}>Join Post</Button>:<p/>}
                     </CardText>
                   </CardBody>
                 </Card>

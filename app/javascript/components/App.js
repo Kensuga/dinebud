@@ -196,7 +196,7 @@ class App extends React.Component {
         </Row>
       </span>
         <Router>
-          {logged_in?hasProfile?<Redirect to="/"/>:<Redirect to="/createprofile"/>:<Redirect to="/login"/>}
+          {logged_in?<Redirect to="/"/>:<Redirect to="/login"/>}
           { create && <Redirect to="/new" />}
           <Switch>
             <Route exact path="/createprofile" render={props => <Profile current_user={current_user} logged_in={logged_in} checkProfile={this.checkProfile}/>}/>
