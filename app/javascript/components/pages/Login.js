@@ -54,8 +54,7 @@ class Login extends React.Component {
     event.preventDefault()
   }
   
-  loginSubmit(event){
-    let thats = this
+  loginSubmit(){
     let {email, password } = this.state.loginUser
     fetch('/users/sign_in', {
       // converting an object to a string
@@ -74,12 +73,9 @@ class Login extends React.Component {
     .then((response) => {
       // if the response is good call the getAppts method
       if(response.ok){
-        thats.setState({success:true})
-        alert("success")
-        location.reload()
+        this.setState({success:true})
       }
     })
-    event.preventDefault()
   }
 
   userCreateEmail(email){
@@ -172,7 +168,7 @@ class Login extends React.Component {
                   <p>Don't have an account? <span className="sign-a" onClick={()=>this.setState({sign_in:false})}>Sign Up</span></p>
                 </Row>
                 <Row>
-                  <Button onClick={(e) => this.loginSubmit(e)} className="login-button">Submit</Button>
+                  <Button onClick={() => this.loginSubmit()} className="login-button">Submit</Button>
                   { this.state.success && 
                   <Redirect to="/"/>
                   }

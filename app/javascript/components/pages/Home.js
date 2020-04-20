@@ -19,27 +19,9 @@ class Home extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        hasProfile:true
       }
     }
-  componentWillMount() {
-    this.checkProfile();
-  }
-   checkProfile=()=>{
-    // e.preventDefault()
-    let result = false
-    let {profiles} = this.props 
-    let {current_user} = this.props
-    for(let i=0; i<profiles.length;i++){
-      console.log(profiles[i])
-      console.log(current_user.id)
-      if(profiles[i].user_id === current_user.id){
-        result = true 
-      }
-    }
-    this.setState({hasProfile:result})
-  }
-  
+    
   handlePost = (post) => {
     this.props.viewPost(post)
   }
@@ -48,6 +30,22 @@ class Home extends React.Component {
   }
   
   render () {
+    let hasProfile = true;
+    console.log(this.props.current_user)
+    console.log(this.props.profiles)
+    
+    if(this.props.profiles.length === 0){
+      hasProfile = false;
+    }
+    
+    this.props.profiles.forEach(profile => {
+      if(profile.user_id === this.props.current_user.id){
+          hasProfile = true
+        } else {
+          hasProfile = false
+      }
+    })
+
     let map = this.props.posts.map((post, i) => {
       let prof = ""
       this.props.profiles.forEach((profile,index) => {
@@ -55,6 +53,7 @@ class Home extends React.Component {
           prof = profile
         }
       })
+      
       
       return (
         <div key={i}
@@ -105,22 +104,20 @@ class Home extends React.Component {
       content.push(
         <Row style= {{display:"flex", justifyContent:"center", justifyContent:"space-around", margin:"0 auto", width:"vw"}}>
           {arrayContent()}
-          <br/>
         </Row>
         )
     }
-    const {hasProfile} = this.state
     
     return ( 
       <React.Fragment>
-      {!hasProfile &&
+      {hasProfile &&
       <div style={{backgroundColor:"#0081a8", justifyContent:"center"}}>
           {content}
       </div>
       }
-      {hasProfile &&
+      {!hasProfile &&
       <div>
-          <Profile />
+          <Profile current_user = {this.props.current_user}/>
       </div>
       }
       </React.Fragment>

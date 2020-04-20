@@ -64,6 +64,7 @@ class Profile extends React.Component {
     
     render () {
         let {logged_in} = this.props
+        console.log(this.props.current_user)
         return (
             <React.Fragment>
                 <div className="outer-profile-container">
