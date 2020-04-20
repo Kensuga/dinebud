@@ -54,3 +54,4 @@ export default class ViewProfile extends React.Component{
             )
     }
 }
+

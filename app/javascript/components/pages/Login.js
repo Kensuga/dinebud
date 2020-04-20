@@ -57,7 +57,11 @@ class Login extends React.Component {
   loginSubmit(event){
     let thats = this
     let {email, password } = this.state.loginUser
+<<<<<<< HEAD
     fetch('http://18.222.249.175:8080/users/sign_in', {
+=======
+    fetch('/users/sign_in', {
+>>>>>>> a927459b153342d1a809889fa812c337c5b5d207
       // converting an object to a string
     	body: JSON.stringify({
     	  user:{

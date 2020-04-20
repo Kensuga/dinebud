@@ -4,7 +4,12 @@ import { Form, Button, Input, Label, FormGroup, FormText } from "reactstrap";
 import { Link, Redirect } from 'react-router-dom'
 import Location from '../components/Location'
 import DateTime from '../components/DateTime'
+<<<<<<< HEAD
  
+=======
+import 'date-fns';
+
+>>>>>>> a927459b153342d1a809889fa812c337c5b5d207
 class CreatePost extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +17,7 @@ class CreatePost extends Component {
       success: false,
       newPost: {
         location: "",
-        schedule_time: "",
+        schedule_time: new Date(),
         active: true,
         partner_id: 0,
         lat: 0,
@@ -33,7 +38,11 @@ class CreatePost extends Component {
       success: true
     })
   }
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> a927459b153342d1a809889fa812c337c5b5d207
   postLocationUpdate = (address, coordinates) => {
     let updatedPost = this.state.newPost;
     updatedPost.location = address;
@@ -41,6 +50,7 @@ class CreatePost extends Component {
     updatedPost.lng = coordinates.lng
     this.setState({ newPost: updatedPost });
   }
+<<<<<<< HEAD
   postDateUpdate(date) {
     this.setState({date: date})
     this.postScheduleUpdate()
@@ -52,9 +62,12 @@ class CreatePost extends Component {
   }
  
   postScheduleUpdate(){
+=======
+  
+  postScheduleUpdate = (date) => {
+>>>>>>> a927459b153342d1a809889fa812c337c5b5d207
       let realDate = this.state.date.concat(this.state.time)
-      console.log(this.state.date.concat(this.state.time))
-      console.log(realDate)
+      realDate.schedule_time = date
       this.setState({ schedule_time: realDate})
   }
  
@@ -83,7 +96,7 @@ class CreatePost extends Component {
           </Col>
           </Row>
             <Row style={{display:"flex", justifyContent:"center", justifyContent:"space-around"}}>
-                <DateTime />
+                <DateTime dateUpdate = {this.postScheduleUpdate} />
             </Row>
           <Row style={{ display: "flex", justifyContent: "center" }}>
               <Button
@@ -95,6 +108,9 @@ class CreatePost extends Component {
               </Button>
               { this.state.success && <Redirect to="/"/> }
           </Row>
+          </Row>
+          <Row>
+            <button onClick ={console.log(this.state.newPost.schedule_time)}>What is the time?</button>
           </Row>
         </Container>
       </div>

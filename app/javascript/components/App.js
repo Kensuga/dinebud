@@ -119,6 +119,7 @@ class App extends React.Component {
  
   deletePost = () => {
    fetch(`http://18.222.249.175:8080/posts/${this.state.viewPost.id}`, {
+
      method: 'DELETE'
     }
   ).then((response) => {
