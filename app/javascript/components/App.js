@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import {Row, Col} from 'reactstrap'
 import {FaBars, FaBell, FaBellSlash, FaPlus} from 'react-icons/fa'
-import './App.css'
+import './App.scss'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import ViewPost from './pages/ViewPost'
