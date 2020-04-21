@@ -19,8 +19,10 @@ class Home extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
+        allProfiles : []
       }
     }
+
     
   handlePost = (post) => {
     this.props.viewPost(post)
@@ -30,21 +32,21 @@ class Home extends React.Component {
   }
   
   render () {
-    let hasProfile = true;
-    console.log(this.props.current_user)
-    console.log(this.props.profiles)
+    // let hasProfile = true;
+    // console.log("current user home", this.props.current_user)
+    // console.log("profiles home", this.props.profiles)
     
-    if(this.props.profiles.length === 0){
-      hasProfile = false;
-    }
+    // if(this.props.profiles.length === 0){
+    //   hasProfile = false;
+    // }
     
-    this.props.profiles.forEach(profile => {
-      if(profile.user_id === this.props.current_user.id){
-          hasProfile = true
-        } else {
-          hasProfile = false
-      }
-    })
+    // this.props.profiles.forEach(profile => {
+    //   if(profile.user_id === this.props.current_user.id){
+    //       hasProfile = true
+    //     } else {
+    //       hasProfile = false
+    //   }
+    // })
 
     let map = this.props.posts.map((post, i) => {
       let prof = ""
@@ -107,15 +109,15 @@ class Home extends React.Component {
         </Row>
         )
     }
-    
+    {console.log(this.props.hasProfile)}
     return ( 
       <React.Fragment>
-      {hasProfile &&
+      {this.props.hasProfile &&
       <div style={{backgroundColor:"#0081a8", justifyContent:"center"}}>
           {content}
       </div>
       }
-      {!hasProfile &&
+      {!this.props.hasProfile &&
       <div>
           <Profile current_user = {this.props.current_user}/>
       </div>

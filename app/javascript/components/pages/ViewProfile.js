@@ -30,7 +30,7 @@ export default class ViewProfile extends React.Component{
                     <Card style={{ boxShadow:"0px 0px 10px", marginTop:"3vh" }}>
                         <Row>
                             <Col>
-                                <CardImg src={profile.image}/>
+                                <CardImg src={profile.image} style={{ height:"100%" }}/>
                             </Col>
                             <Col>
                                 <CardBody>

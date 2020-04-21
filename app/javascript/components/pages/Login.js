@@ -45,7 +45,7 @@ class Login extends React.Component {
       // if the response is good call the getAppts method
       if(response.ok){
         thats.setState({success:true})
-        location.reload()
+        window.location.reload()
       }
     })
     } else {
@@ -56,6 +56,7 @@ class Login extends React.Component {
   
   loginSubmit(){
     let {email, password } = this.state.loginUser
+    let thats = this
     fetch('/users/sign_in', {
       // converting an object to a string
     	body: JSON.stringify({
@@ -73,7 +74,8 @@ class Login extends React.Component {
     .then((response) => {
       // if the response is good call the getAppts method
       if(response.ok){
-        this.setState({success:true})
+        thats.setState({success:true})
+        window.location.reload()
       }
     })
   }
@@ -231,7 +233,7 @@ class Login extends React.Component {
                 <Row>
                   <Button onClick={(e) => this.createSubmit(e)} className="login-button">Submit</Button>
                   { this.state.success && 
-                  <Router><Redirect to="/"/></Router>
+                  <Router><Redirect to="/dashboard"/></Router>
                   }
                 </Row>
               </Container>
