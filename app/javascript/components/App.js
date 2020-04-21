@@ -189,9 +189,6 @@ class App extends React.Component {
             {logged_in &&
               <h3><a href={sign_out_route} className={"atma"} style={{color:"white",fontSize:"50px"}}>LogOut</a></h3>
             }
-            {!logged_in &&
-              <h3><a href={sign_up_route} className={"atma"} style={{color:"white",fontSize:"50px"}}>Sign Up</a></h3>
-            }
           </Col>
         </Row>
       </span>
